@@ -1,52 +1,75 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using static System.Console;
 
 public class GameManager : MonoBehaviour
 {
-    // int vertical_length = 4, horizontal_length = 10;
-    // int[,] power_line = new int[(vertical_length * 2 + 1) * (horizontal_length * 2 + 1),0];
-    // Array.Initialize(power_line, 0);
-    // int[,] map = new int[vertical_length, horizontal_length]
-    // Array.Initialize(map, 0);
+    // vertical_length,horizontal_lengthはjsonから入手したい
+    // power_lineとかdistanceの配列の大きさとかは大きい値で初期化かも
+    int vertical_length = 4;
+    int horizontal_length = 10;
+    int sx = 0;
+    int sy = 0;
+    int[,,] power_line;
+    int[,] distance;
 
-    // int[] Bfs()
-    // {
-    //     int[] dist = new int[(vertical_length * 2 + 1) * (horizontal_length * 2 + 1)]
-    //     Array.Initialize(map, -1);
-    //     Array.Initialize(check, 0);
-    //     var que = new Queue<int>();
-    //     que.Enqueue(0);
-    //     while (!que.Count > 0)
-    //     {
-    //         int q = que.Peek(); que.Dequeue();
-    //         for (auto nq: power_line[q])
-    //         {
-    //             if (dist[nq] == -1)
-    //             {
-    //                 dist[nq] = dist[q] + 1;
-    //                 que.push(nq);
-    //             }
-    //         }
-    //     }
-    //     return dist;
-    // }
+    void Bfs()
+    {
+        Queue<Tuple<int, int>> tq = new Queue<Tuple<int, int>>();
+        tq.Enqueue(Tuple.Create(sx, sy));
+        int[] vx = { -1, 0, 1, 0 };
+        int[] vy = { 0, 1, 0, -1 };
+        while (0 < tq.Count)
+        {
+            var q = tq.Dequeue();
+            int x = q.Item1;
+            int y = q.Item2;
 
-    // // Start is called before the first frame update
-    // void Start()
-    // {
-    //     //�����z�u�ɉ����ĉƓd��z�u
+            for (int i = 0; i < 4; i++)
+            {
+                int nx = x + vx[i];
+                int ny = y + vy[i];
+                if ((0 <= nx && nx <= vertical_length * 2) && (0 <= ny && ny <= horizontal_length * 2 + 1) && power_line[nx, ny,i] == 1 && distance[nx, ny] == -1)
+                {
+                    distance[nx, ny] = distance[x, y] + 1;
+                    tq.Enqueue(Tuple.Create(nx, ny));
+                }
+            }
+        }
+    }
+
+     // Start is called before the first frame update
+     void Start()
+     {
+        power_line = new int[(vertical_length * 2 + 1), (horizontal_length * 2 + 1), 4];
+        distance = new int[vertical_length, horizontal_length];
+        for (int i = 0; i < vertical_length * 2 + 1 ; i++)
+        {
+            for (int j = 0; j < horizontal_length * 2 + 1 ; j++)
+            {
+                for (int k = 0; k < 4; k++)
+                {
+                    power_line[i, j, k] = 0;
+                }
+            }
+        }
+        for (int x = 0; x < vertical_length; x++){
+            for (int y = 0; y < horizontal_length; y++){
+                distance[x, y] = -1;
+            }
+        }
 
 
+        Debug.Log("done");
+     }
 
-    // }
+    // Update is called once per frame
+    void Update()
+    {
 
-    // // Update is called once per frame
-    // void Update()
-    // {
-
-    // }
+    }
 }
