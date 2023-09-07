@@ -16,6 +16,17 @@ public class GameManager : MonoBehaviour
     int sy = 0;
     int[,,] power_line;
     int[,] distance;
+    bool[,] board;
+
+    void initialize()
+    {
+
+    }
+
+    void OnUpdate()
+    {
+
+    }
 
     void Bfs()
     {
@@ -42,9 +53,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-     // Start is called before the first frame update
-     void Start()
-     {
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
         power_line = new int[(vertical_length * 2 + 1), (horizontal_length * 2 + 1), 4];
         distance = new int[vertical_length, horizontal_length];
         for (int i = 0; i < vertical_length * 2 + 1 ; i++)
@@ -62,10 +75,10 @@ public class GameManager : MonoBehaviour
                 distance[x, y] = -1;
             }
         }
-
+        initialize();
 
         Debug.Log("done");
-     }
+    }
 
     // Update is called once per frame
     void Update()
