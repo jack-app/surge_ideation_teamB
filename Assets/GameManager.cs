@@ -5,11 +5,13 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using static System.Console;
+using jsontype;
 
 public class GameManager : MonoBehaviour
 {
     // vertical_length,horizontal_lengthはjsonから入手したい
     // power_lineとかdistanceの配列の大きさとかは大きい値で初期化かも
+    public GameObject jsonsettings;
     int vertical_length = 4;
     int horizontal_length = 10;
     int sx = 0;
@@ -18,7 +20,7 @@ public class GameManager : MonoBehaviour
     int[,] distance;
     bool[,] board;
 
-    void initialize()
+    void initialize(data obj)
     {
 
     }
@@ -75,7 +77,10 @@ public class GameManager : MonoBehaviour
                 distance[x, y] = -1;
             }
         }
-        initialize();
+        data obj = jsonsettings.GetComponent<JsonSettings>().loadSettings();
+        initialize(obj);
+        //デバッグに表示する。
+        Debug.Log(obj.map.start.x);
 
         Debug.Log("done");
     }

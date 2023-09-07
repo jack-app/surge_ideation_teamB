@@ -4,56 +4,60 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
+using jsontype;
 
-[System.Serializable]
-public class Start
+namespace jsontype
 {
-    public int x ;
-    public int y ;
+    [System.Serializable]
+    public class Start
+    {
+        public int x;
+        public int y;
 
-}
-[System.Serializable]
-public class Goal
-{
-    public int x ;
-    public int y ;
+    }
+    [System.Serializable]
+    public class Goal
+    {
+        public int x;
+        public int y;
 
-}
-[System.Serializable]
-public class Cells
-{
-    public int x ;
-    public int y ;
-    public IList<bool> wireInterface ;
-    public string texture ;
+    }
+    [System.Serializable]
+    public class Cells
+    {
+        public int x;
+        public int y;
+        public IList<bool> wireInterface;
+        public string texture;
 
-}
-[System.Serializable]
-public class Electronics
-{
-    public IList<Cells> cells ;
+    }
+    [System.Serializable]
+    public class Electronics
+    {
+        public IList<Cells> cells;
 
-}
-[System.Serializable]
-public class Map
-{
-    public Start start ;
-    public Goal goal ;
-    public IList<Electronics> electronics ;
+    }
+    [System.Serializable]
+    public class Map
+    {
+        public Start start;
+        public Goal goal;
+        public IList<Electronics> electronics;
 
-}
-[System.Serializable]
-public class Pieces
-{
-    public IList<Cells> cells ;
+    }
+    [System.Serializable]
+    public class Pieces
+    {
+        public IList<Cells> cells;
 
-}
-[System.Serializable]
-public class Application
-{
-    public Map map ;
-    public IList<Pieces> pieces ;
+    }
+    [System.Serializable]
+    public class data
+    {
+        public Map map;
+        public IList<Pieces> pieces;
 
+    }
 }
 
 public class JsonSettings : MonoBehaviour
@@ -65,7 +69,7 @@ public class JsonSettings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        loadSettings();
+
     }
 
 
@@ -76,24 +80,22 @@ public class JsonSettings : MonoBehaviour
     }
 
     //JSONファイルを読み込む。
-    private void loadSettings()
+    public data loadSettings()
     {
         //ファイル名が間違ってる場合はエラーを出しとく
         if (!File.Exists(jsonPath))
         {
             Debug.Log("setting File not Exists");
-            return;
+            return new data();
         }
 
         //JSONファイルを読み込む
         var json = File.ReadAllText(jsonPath);
 
         //オブジェクト化する
-        Application obj = JsonUtility.FromJson<Application>(json);
+        data obj = JsonUtility.FromJson<data>(json);
 
-
-        //デバッグに表示する。
-        Debug.Log(obj.map.start.x);
+        return obj;
     }
 
 }
