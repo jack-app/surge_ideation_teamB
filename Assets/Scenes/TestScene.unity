@@ -133,9 +133,9 @@ GameObject:
   m_Component:
   - component: {fileID: 291210953}
   - component: {fileID: 291210952}
-  - component: {fileID: 291210951}
   - component: {fileID: 291210950}
   - component: {fileID: 291210949}
+  - component: {fileID: 291210954}
   m_Layer: 0
   m_Name: TestObjectDragAndDrop1 (2)
   m_TagString: Untagged
@@ -205,18 +205,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &291210951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 291210948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68ff5fdb195cce5419b3225fd41dbe86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &291210952
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -284,6 +272,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &291210954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291210948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c80894d388c2c498b4c36bd195e04f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  initialPosition: {x: 0, y: 0}
+  canBePlaced: 0
 --- !u!1 &483711736
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,9 +297,9 @@ GameObject:
   m_Component:
   - component: {fileID: 483711741}
   - component: {fileID: 483711740}
-  - component: {fileID: 483711739}
   - component: {fileID: 483711738}
   - component: {fileID: 483711737}
+  - component: {fileID: 483711742}
   m_Layer: 0
   m_Name: TestObjectDragAndDrop1 (1)
   m_TagString: Untagged
@@ -366,18 +369,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &483711739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 483711736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68ff5fdb195cce5419b3225fd41dbe86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &483711740
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -445,6 +436,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &483711742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483711736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c80894d388c2c498b4c36bd195e04f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  initialPosition: {x: 0, y: 0}
+  canBePlaced: 1
 --- !u!1 &1182681072
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,9 +638,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1873684888}
   - component: {fileID: 1873684887}
-  - component: {fileID: 1873684886}
   - component: {fileID: 1873684885}
   - component: {fileID: 1873684884}
+  - component: {fileID: 1873684889}
   m_Layer: 0
   m_Name: TestObjectDragAndDrop1
   m_TagString: Untagged
@@ -704,18 +710,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1873684886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1873684883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68ff5fdb195cce5419b3225fd41dbe86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &1873684887
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -783,6 +777,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1873684889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873684883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c80894d388c2c498b4c36bd195e04f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  initialPosition: {x: 0, y: 0}
+  canBePlaced: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

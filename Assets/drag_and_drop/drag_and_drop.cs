@@ -22,6 +22,7 @@ public class drag_and_drop : MonoBehaviour
     {
 
 
+        
         Vector3 thisPosition = Input.mousePosition;
         worldPosition = Camera.main.ScreenToWorldPoint(thisPosition);
         worldPosition.z = 0f;
@@ -30,8 +31,8 @@ public class drag_and_drop : MonoBehaviour
     }
     private void OnMouseUp()
     {
-
-        Vector3 putPosition = new Vector3(Mathf.Round(worldPosition.x), Mathf.Round(worldPosition.y), 0f);
+        
+        Vector2 putPosition = new Vector2(Mathf.Round(worldPosition.x), Mathf.Round(worldPosition.y));
         this.transform.position = putPosition;
 
     }
