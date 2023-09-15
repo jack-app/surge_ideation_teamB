@@ -6,6 +6,8 @@ public class PieceCell : MonoBehaviour
 {
     GameObject parentPiece;
     Piece parentScript;
+    public bool isCurrentFlowing=false;
+    public bool[] wireInterfase;
     void OnMouseDown()
     {
         parentScript.dragging = true;

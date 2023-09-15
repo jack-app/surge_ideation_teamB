@@ -6,9 +6,8 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
-    public int id = 0;
-    Type type;
-    //Array[PieceCell] cells;
+    //id,type‚Í‚¢‚ç‚È‚¢‚©‚à
+    public GameObject[] cells;
     public Vector2 initialPosition = Vector2.zero;
     public bool canBePlaced = false;
     public Vector3 worldPosition = Vector3.zero;
