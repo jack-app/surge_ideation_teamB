@@ -11,41 +11,30 @@ public class Piece : MonoBehaviour
     //Array[PieceCell] cells;
     public Vector2 initialPosition = Vector2.zero;
     public bool canBePlaced = false;
-    Vector3 worldPosition = Vector3.zero;
-
-    void OnMouseUp()
-    {
-        if (CanPieceBePlaced())
-        {
-            this.transform.position = GetNearestCell();
-        }
-        else
-        {
-            MoveToInitialPosition();
-        }
-    }
-
-     void OnMouseDrag()
-    {
-        Vector3 thisPosition = Input.mousePosition;
-        worldPosition = Camera.main.ScreenToWorldPoint(thisPosition);
-        worldPosition.z = 0f;
-        this.transform.position = worldPosition;
-    }
+    public Vector3 worldPosition = Vector3.zero;
+    public bool dragging = false;
+    public float wheel = 0;
+    public Vector3 rotationPoint;
 
     private void OnRotate()
     {
-        
+        //回転の取得
+        wheel += Input.GetAxis("Mouse ScrollWheel")*300;
+        if (((int)wheel / 90) * 90 != 0)
+        {
+            transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), ((int)wheel / 90) * 90);
+            wheel = 0;
+        }
     }
 
-    bool CanPieceBePlaced()
+    public bool CanPieceBePlaced()
     {
         //おけるマスかどうかの判定を行う
 
         return canBePlaced;
     }
 
-    Vector2 GetNearestCell()
+    public Vector2 GetNearestCell()
     {
         //OnMouseDragで使用した変数worldPositionからマウスの位置を取得し，整数にしてreturn
         
@@ -54,7 +43,7 @@ public class Piece : MonoBehaviour
         return nearestCell;
     }
 
-    void MoveToInitialPosition()
+    public void MoveToInitialPosition()
     {
         this.transform.position = initialPosition;
     }
@@ -69,6 +58,9 @@ public class Piece : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (dragging)
+        {
+            OnRotate();
+        }
     }
 }
