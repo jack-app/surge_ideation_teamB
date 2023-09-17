@@ -9,7 +9,6 @@ public class Piece : MonoBehaviour
     //id,typeはいらないかも
     public GameObject[] cells;
     public Vector2 initialPosition = Vector2.zero;
-    public bool canBePlaced = false;
     public Vector3 worldPosition = Vector3.zero;
     public bool dragging = false;
     public float wheel = 0;
@@ -29,15 +28,25 @@ public class Piece : MonoBehaviour
     public bool CanPieceBePlaced()
     {
         //おけるマスかどうかの判定を行う
+        //Todo マスの置ける範囲をGameManagerから取ってくる
+        foreach (Transform children in transform)
+        {
+            float roundX = Mathf.Round(children.transform.position.x+0.5f)-0.5f;
+            float roundY = Mathf.Round(children.transform.position.y+0.5f)-0.5f;
 
-        return canBePlaced;
+            // minoがステージよりはみ出さないように制御
+            if (roundX < 0 || roundX >= 6 || roundY < 0 || roundY >= 6)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     public Vector2 GetNearestCell()
     {
-        //OnMouseDragで使用した変数worldPositionからマウスの位置を取得し，整数にしてreturn
-        
-        Vector2 nearestCell = new Vector2(Mathf.Round(worldPosition.x), Mathf.Round(worldPosition.y));
+        //OnMouseDragで使用した変数worldPositionからマウスの位置を取得し，最も近いセルの中心の座標を返す
+        Vector2 nearestCell = new Vector2(Mathf.Round(worldPosition.x+0.5f)-0.5f, Mathf.Round(worldPosition.y+0.5f)-0.5f);
         Debug.Log(nearestCell);
         return nearestCell;
     }
