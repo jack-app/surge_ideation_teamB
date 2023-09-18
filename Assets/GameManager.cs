@@ -50,6 +50,11 @@ public class GameManager : MonoBehaviour
             pieceList.Add((GameObject)Instantiate(piece, new Vector3(init_x,init_y,0), Quaternion.identity));
             pieceList[i].name = "Mino" + i.ToString();
             pieceList[i].AddComponent<Piece>();
+            Piece pieceScript = pieceList[i].GetComponent<Piece>();
+            pieceScript.max_x = horizontal_length;
+            pieceScript.max_y = vertical_length;
+            pieceScript.initialPosition = new Vector2(init_x, init_y);
+
 
             for (int j = 0; j < obj.pieces[i].cells.Count;j++){
                 
@@ -57,6 +62,7 @@ public class GameManager : MonoBehaviour
                 blockList.Add((GameObject)Instantiate(block, pos, Quaternion.identity));
                 blockList.Last().transform.parent = pieceList[i].transform;
                 blockList.Last().name = "Block" + (block_cnt + j).ToString();
+                PieceCell pieceCellScript = blockList.Last().GetComponent<PieceCell>();
 
                 imagePath = obj.pieces[i].cells[j].texture.ToString();
                 //imagePath = imagePath.Replace(".png","");
@@ -68,7 +74,8 @@ public class GameManager : MonoBehaviour
                 image.texture = Resources.Load<Texture2D>(imagePath);
 
                 for(int k = 0;k<obj.pieces[i].cells[j].wireInterface.Count;k++){
-                    if(obj.pieces[i].cells[j].wireInterface[k]){
+                    pieceCellScript.wireInterfase.Add(obj.pieces[i].cells[j].wireInterface[k]);
+                    if (obj.pieces[i].cells[j].wireInterface[k]){
                         Debug.Log(k);
                         switch(k){
                             case 0:

@@ -7,12 +7,14 @@ using UnityEngine;
 public class Piece : MonoBehaviour
 {
     //id,typeはいらないかも
-    public GameObject[] cells;
+    public List<GameObject> cells;
     public Vector2 initialPosition = Vector2.zero;
     public Vector3 worldPosition = Vector3.zero;
     public bool dragging = false;
     public float wheel = 0;
     public Vector3 rotationPoint;
+    public int max_x = 0;
+    public int max_y = 0;
 
     private void OnRotate()
     {
@@ -35,7 +37,7 @@ public class Piece : MonoBehaviour
             float roundY = Mathf.Round(children.transform.position.y+0.5f)-0.5f;
 
             // minoがステージよりはみ出さないように制御
-            if (roundX < 0 || roundX >= 6 || roundY < 0 || roundY >= 6)
+            if (roundX < 0 || roundX >= max_x || roundY < 0 || roundY >= max_y)
             {
                 return false;
             }
