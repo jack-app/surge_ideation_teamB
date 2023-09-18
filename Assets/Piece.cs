@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
-    //id,typeはいらないかも
-    public List<GameObject> cells;
+    public GameObject tester;
+    public GameManager manager;
     public Vector2 initialPosition = Vector2.zero;
     public Vector3 worldPosition = Vector3.zero;
     public bool dragging = false;
@@ -27,6 +27,27 @@ public class Piece : MonoBehaviour
         }
     }
 
+    public void OnSet()
+    {
+        foreach (Transform children in transform)
+        {
+            float roundX = Mathf.Round(children.transform.position.x + 0.5f) - 0.5f;
+            float roundY = Mathf.Round(children.transform.position.y + 0.5f) - 0.5f;
+            manager.board[(int)roundX, (int)roundY] = true;
+        }
+    }
+
+    public void OnRemove()
+    {
+        foreach (Transform children in transform)
+        {
+            float roundX = Mathf.Round(children.transform.position.x + 0.5f) - 0.5f;
+            float roundY = Mathf.Round(children.transform.position.y + 0.5f) - 0.5f;
+            if (roundX < 0 || roundX >= max_x || roundY < 0 || roundY >= max_y) continue;
+            manager.board[(int)roundX, (int)roundY] = false;
+        }
+    }
+
     public bool CanPieceBePlaced()
     {
         //おけるマスかどうかの判定を行う
@@ -38,6 +59,10 @@ public class Piece : MonoBehaviour
 
             // minoがステージよりはみ出さないように制御
             if (roundX < 0 || roundX >= max_x || roundY < 0 || roundY >= max_y)
+            {
+                return false;
+            }
+            if (manager.board[(int)roundX,(int)roundY])
             {
                 return false;
             }
@@ -62,7 +87,9 @@ public class Piece : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        tester = GameObject.Find("Tester");
+        manager = tester.GetComponent<GameManager>();
+
     }
 
     // Update is called once per frame

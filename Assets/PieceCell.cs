@@ -10,6 +10,7 @@ public class PieceCell : MonoBehaviour
     public List<bool> wireInterfase;
     void OnMouseDown()
     {
+        parentScript.OnRemove();
         parentScript.dragging = true;
     }
 
@@ -17,6 +18,7 @@ public class PieceCell : MonoBehaviour
     {
         if (parentScript.CanPieceBePlaced())
         {
+            parentScript.OnSet();
             parentScript.transform.position = parentScript.GetNearestCell();
         }
         else
@@ -30,7 +32,7 @@ public class PieceCell : MonoBehaviour
     {
         Vector3 thisPosition = Input.mousePosition;
         parentScript.worldPosition = Camera.main.ScreenToWorldPoint(thisPosition);
-        parentScript.worldPosition.z = 0f;
+        parentScript.worldPosition.z = -2f;
         parentScript.transform.position = parentScript.worldPosition;
     }
     // Start is called before the first frame update

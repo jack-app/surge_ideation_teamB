@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     int gy = 0;
     int[,,] power_line;
     int[,] distance;
-    bool[,] board;
+    public bool[,] board;
    
     public GameObject block;
     public GameObject piece;
@@ -32,16 +32,10 @@ public class GameManager : MonoBehaviour
     public List<GameObject> wireList;
     public RawImage image;
 
-    void initialize(data obj)
+    void initializePiece(data obj)
     {
         string imagePath = new string("Null");
         int block_cnt = 0;
-        horizontal_length = obj.map.size.x;
-        vertical_length = obj.map.size.y;
-        sx= obj.map.start.x;
-        sy= obj.map.start.y;
-        gx= obj.map.goal.x;
-        gy= obj.map.goal.y;
         
         for(int i = 0;i<obj.pieces.Count;i++){
             int init_x = horizontal_length+3+(i%2)*4;
@@ -107,6 +101,43 @@ public class GameManager : MonoBehaviour
         //Debug.Log("ok");
                 
     }
+
+    void initializeMap(data obj)
+    {
+        horizontal_length = obj.map.size.x;
+        vertical_length = obj.map.size.y;
+        sx = obj.map.start.x;
+        sy = obj.map.start.y;
+        gx = obj.map.goal.x;
+        gy = obj.map.goal.y;
+        power_line = new int[(horizontal_length * 2 + 1),(vertical_length * 2 + 1), 4];
+        distance = new int[horizontal_length,vertical_length];
+        board = new bool[horizontal_length,vertical_length];
+        for (int i = 0; i < horizontal_length * 2 + 1; i++)
+        {
+            for (int j = 0; j < vertical_length * 2 + 1; j++)
+            {
+                for (int k = 0; k < 4; k++)
+                {
+                    power_line[i, j, k] = 0;
+                }
+            }
+        }
+        for (int x = 0; x < horizontal_length; x++)
+        {
+            for (int y = 0; y < vertical_length; y++)
+            {
+                distance[x, y] = -1;
+            }
+        }
+        for (int x = 0; x < horizontal_length; x++)
+        {
+            for (int y = 0; y < vertical_length; y++)
+            {
+                board[x, y] = false;
+            }
+        }
+    }
     
 
     void OnUpdate()
@@ -144,25 +175,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        power_line = new int[(vertical_length * 2 + 1), (horizontal_length * 2 + 1), 4];
-        distance = new int[vertical_length, horizontal_length];
-        for (int i = 0; i < vertical_length * 2 + 1 ; i++)
-        {
-            for (int j = 0; j < horizontal_length * 2 + 1 ; j++)
-            {
-                for (int k = 0; k < 4; k++)
-                {
-                    power_line[i, j, k] = 0;
-                }
-            }
-        }
-        for (int x = 0; x < vertical_length; x++){
-            for (int y = 0; y < horizontal_length; y++){
-                distance[x, y] = -1;
-            }
-        }
         data obj = jsonsettings.GetComponent<JsonSettings>().loadSettings();
-        initialize(obj);
+        initializeMap(obj);
+        initializePiece(obj);
         //デバッグに表示する。
         Debug.Log(obj.map.start.x);
 
