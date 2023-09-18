@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jsonsettings: {fileID: 1098491638}
-  block: {fileID: 1526333143793633328, guid: 7b9c3519e74380f43988931a04f4c1e6, type: 3}
+  block: {fileID: 6766234526213780204, guid: 8e9b219232defa84790a70601e60f3bd, type: 3}
   piece: {fileID: 1252083080173069594, guid: dc18b22fd1a5b6d4d80c2c8ee2a0e493, type: 3}
   wire: {fileID: 2523541067314038120, guid: 9b2da58832626194cb465b3533f3303b, type: 3}
   blockList: []

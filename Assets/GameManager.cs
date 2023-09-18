@@ -46,7 +46,6 @@ public class GameManager : MonoBehaviour
                 blockList.Add((GameObject)Instantiate(block, pos, Quaternion.identity));
                 blockList[j - 1].transform.parent = pieceList[i-1].transform;
                 blockList[j - 1].name = "Block" + j.ToString();
-                blockList[j - 1].AddComponent<PieceCell>();
 
                 imagePath = obj.pieces[i-1].cells[j-1].texture.ToString();
                 imagePath = imagePath.Replace(".png","");
@@ -65,16 +64,16 @@ public class GameManager : MonoBehaviour
                                 //GameObject thumb = (GameObject)Instantiate(wire, pos , Quaternion.Euler(0f,0f,0f));
                                 //wireList.Add(thumb);
                                 //thumb.transform.parent = blockList[i-1].transform;
-                                wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(0f, 0.25f, 0f), Quaternion.Euler(0f,0f,0f)));
+                                wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(0f, 0.25f, -1f), Quaternion.Euler(0f,0f,0f)));
                                 break;
                             case 2:
-                                wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(0.25f, 0f, 0f), Quaternion.Euler(0f,0f,90f)));
+                                wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(0.25f, 0f, -1f), Quaternion.Euler(0f,0f,90f)));
                                 break;
                             case 3:
-                                wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(0f, -0.25f, 0f), Quaternion.Euler(0f,0f,180f)));
+                                wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(0f, -0.25f, -1f), Quaternion.Euler(0f,0f,180f)));
                                 break;
                             case 4:
-                                wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(-0.25f, 0.25f, 0f), Quaternion.Euler(0f,0f,270f)));
+                                wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(-0.25f, 0.25f, -1f), Quaternion.Euler(0f,0f,270f)));
                                 break;
                             default:
                                 break;
