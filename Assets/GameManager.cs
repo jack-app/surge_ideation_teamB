@@ -37,15 +37,16 @@ public class GameManager : MonoBehaviour
         for(int i = 1;i<=obj.pieces.Count;i++){
 
             pieceList.Add((GameObject)Instantiate(piece, new Vector3((i-1)*5,0,0), Quaternion.identity));
-            pieceList[i-1].name = "Mino" + i.ToString();
-        
-            for(int j = 1;j<=obj.pieces[i-1].cells.Count;j++){
+            pieceList[i - 1].name = "Mino" + i.ToString();
+            pieceList[i - 1].AddComponent<Piece>();
+
+            for (int j = 1;j<=obj.pieces[i-1].cells.Count;j++){
                 
                 Vector3 pos = new Vector3(obj.pieces[i-1].cells[j-1].x,obj.pieces[i-1].cells[j-1].y,0.0f);
                 blockList.Add((GameObject)Instantiate(block, pos, Quaternion.identity));
-                blockList[j-1].transform.parent = pieceList[i-1].transform;
-
-                blockList[j-1].name = "Block" + j.ToString();
+                blockList[j - 1].transform.parent = pieceList[i-1].transform;
+                blockList[j - 1].name = "Block" + j.ToString();
+                blockList[j - 1].AddComponent<PieceCell>();
 
                 imagePath = obj.pieces[i-1].cells[j-1].texture.ToString();
                 imagePath = imagePath.Replace(".png","");
@@ -80,7 +81,7 @@ public class GameManager : MonoBehaviour
                         
                         }
 
-                        //wireList[k-1].transform.parent = pieceList[i-1].transform;
+                        wireList.Last().transform.parent = blockList[j - 1].transform;
                     }
                 }
                 
