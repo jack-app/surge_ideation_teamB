@@ -14,10 +14,12 @@ public class GameManager : MonoBehaviour
     // vertical_length,horizontal_lengthはjsonから入手したい
     // power_lineとかdistanceの配列の大きさとかは大きい値で初期化かも
     public GameObject jsonsettings;
-    int vertical_length = 4;
-    int horizontal_length = 10;
+    int vertical_length = 0;
+    int horizontal_length = 0;
     int sx = 0;
     int sy = 0;
+    int gx = 0;
+    int gy = 0;
     int[,,] power_line;
     int[,] distance;
     bool[,] board;
@@ -34,16 +36,24 @@ public class GameManager : MonoBehaviour
     {
         string imagePath = new string("Null");
         int block_cnt = 0;
+        horizontal_length = obj.map.size.x;
+        vertical_length = obj.map.size.y;
+        sx= obj.map.start.x;
+        sy= obj.map.start.y;
+        gx= obj.map.goal.x;
+        gy= obj.map.goal.y;
         
         for(int i = 0;i<obj.pieces.Count;i++){
+            int init_x = horizontal_length+3+(i%2)*4;
+            int init_y = vertical_length-2-((int)i/2)*2;
 
-            pieceList.Add((GameObject)Instantiate(piece, new Vector3(0,0,0), Quaternion.identity));
+            pieceList.Add((GameObject)Instantiate(piece, new Vector3(init_x,init_y,0), Quaternion.identity));
             pieceList[i].name = "Mino" + i.ToString();
             pieceList[i].AddComponent<Piece>();
 
             for (int j = 0; j < obj.pieces[i].cells.Count;j++){
                 
-                Vector3 pos = new Vector3(obj.pieces[i].cells[j].x,obj.pieces[i].cells[j].y,0.0f);
+                Vector3 pos = new Vector3(init_x+obj.pieces[i].cells[j].x,init_y+obj.pieces[i].cells[j].y,0.0f);
                 blockList.Add((GameObject)Instantiate(block, pos, Quaternion.identity));
                 blockList.Last().transform.parent = pieceList[i].transform;
                 blockList.Last().name = "Block" + (block_cnt + j).ToString();
