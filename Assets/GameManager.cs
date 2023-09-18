@@ -33,61 +33,59 @@ public class GameManager : MonoBehaviour
     void initialize(data obj)
     {
         string imagePath = new string("Null");
+        int block_cnt = 0;
         
-        for(int i = 1;i<=obj.pieces.Count;i++){
+        for(int i = 0;i<obj.pieces.Count;i++){
 
-            pieceList.Add((GameObject)Instantiate(piece, new Vector3((i-1)*5,0,0), Quaternion.identity));
-            pieceList[i - 1].name = "Mino" + i.ToString();
-            pieceList[i - 1].AddComponent<Piece>();
+            pieceList.Add((GameObject)Instantiate(piece, new Vector3(0,0,0), Quaternion.identity));
+            pieceList[i].name = "Mino" + i.ToString();
+            pieceList[i].AddComponent<Piece>();
 
-            for (int j = 1;j<=obj.pieces[i-1].cells.Count;j++){
+            for (int j = 0; j < obj.pieces[i].cells.Count;j++){
                 
-                Vector3 pos = new Vector3(obj.pieces[i-1].cells[j-1].x,obj.pieces[i-1].cells[j-1].y,0.0f);
+                Vector3 pos = new Vector3(obj.pieces[i].cells[j].x,obj.pieces[i].cells[j].y,0.0f);
                 blockList.Add((GameObject)Instantiate(block, pos, Quaternion.identity));
-                blockList[j - 1].transform.parent = pieceList[i-1].transform;
-                blockList[j - 1].name = "Block" + j.ToString();
+                blockList.Last().transform.parent = pieceList[i].transform;
+                blockList.Last().name = "Block" + (block_cnt + j).ToString();
 
-                imagePath = obj.pieces[i-1].cells[j-1].texture.ToString();
-                imagePath = imagePath.Replace(".png","");
+                imagePath = obj.pieces[i].cells[j].texture.ToString();
+                //imagePath = imagePath.Replace(".png","");
                 //Debug.Log(imagePath);
                 
-                String target = "Block"+j.ToString()+"/Canvas/RawImage";
+                String target = "Block"+(block_cnt+j).ToString()+"/Canvas/RawImage";
                 RawImage image = GameObject.Find(target).GetComponent<RawImage>();
 
                 image.texture = Resources.Load<Texture2D>(imagePath);
 
-                for(int k = 1;k<=obj.pieces[i-1].cells[j-1].wireInterface.Count;k++){
-                    if(obj.pieces[i-1].cells[j-1].wireInterface[k-1]){
+                for(int k = 0;k<obj.pieces[i].cells[j].wireInterface.Count;k++){
+                    if(obj.pieces[i].cells[j].wireInterface[k]){
                         Debug.Log(k);
                         switch(k){
-                            case 1:
+                            case 0:
                                 //GameObject thumb = (GameObject)Instantiate(wire, pos , Quaternion.Euler(0f,0f,0f));
                                 //wireList.Add(thumb);
                                 //thumb.transform.parent = blockList[i-1].transform;
                                 wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(0f, 0.25f, -1f), Quaternion.Euler(0f,0f,0f)));
                                 break;
-                            case 2:
+                            case 1:
                                 wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(0.25f, 0f, -1f), Quaternion.Euler(0f,0f,90f)));
                                 break;
-                            case 3:
+                            case 2:
                                 wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(0f, -0.25f, -1f), Quaternion.Euler(0f,0f,180f)));
                                 break;
-                            case 4:
-                                wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(-0.25f, 0.25f, -1f), Quaternion.Euler(0f,0f,270f)));
+                            case 3:
+                                wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(-0.25f,0, -1f), Quaternion.Euler(0f,0f,270f)));
                                 break;
                             default:
                                 break;
                         
                         }
 
-                        wireList.Last().transform.parent = blockList[j - 1].transform;
+                        wireList.Last().transform.parent = blockList.Last().transform;
                     }
                 }
-                
             }
-
-            
-
+            block_cnt += obj.pieces[i].cells.Count;
         }
         //Debug.Log("ok");
                 
