@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using jsontype;
 
 namespace jsontype
+
 {
     [System.Serializable]
     public class Start
@@ -27,14 +28,14 @@ namespace jsontype
     {
         public int x;
         public int y;
-        public IList<bool> wireInterface;
+        public List<bool> wireInterface;
         public string texture;
 
     }
     [System.Serializable]
     public class Electronics
     {
-        public IList<Cells> cells;
+        public List<Cells> cells;
 
     }
     [System.Serializable]
@@ -42,27 +43,28 @@ namespace jsontype
     {
         public Start start;
         public Goal goal;
-        public IList<Electronics> electronics;
+        public List<Electronics> electronics;
 
     }
     [System.Serializable]
     public class Pieces
     {
-        public IList<Cells> cells;
-
+        public List<Cells> cells;
+        
     }
+    
     [System.Serializable]
     public class data
     {
         public Map map;
-        public IList<Pieces> pieces;
+        public List<Pieces> pieces;
 
     }
 }
 
 public class JsonSettings : MonoBehaviour
 {
-    //JSONƒtƒ@ƒCƒ‹‚ÌƒpƒX‚ğ‹LÚ‚·‚éB
+    //JSONï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ìƒpï¿½Xï¿½ï¿½ï¿½Lï¿½Ú‚ï¿½ï¿½ï¿½B
     private string jsonPath = "Assets/test.json";
 
 
@@ -79,20 +81,20 @@ public class JsonSettings : MonoBehaviour
 
     }
 
-    //JSONƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚ŞB
+    //JSONï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ŞB
     public data loadSettings()
     {
-        //ƒtƒ@ƒCƒ‹–¼‚ªŠÔˆá‚Á‚Ä‚éê‡‚ÍƒGƒ‰[‚ğo‚µ‚Æ‚­
+        //ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôˆï¿½ï¿½ï¿½Ä‚ï¿½ê‡ï¿½ÍƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½Æ‚ï¿½
         if (!File.Exists(jsonPath))
         {
             Debug.Log("setting File not Exists");
             return new data();
         }
 
-        //JSONƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş
+        //JSONï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
         var json = File.ReadAllText(jsonPath);
 
-        //ƒIƒuƒWƒFƒNƒg‰»‚·‚é
+        //ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         data obj = JsonUtility.FromJson<data>(json);
 
         return obj;

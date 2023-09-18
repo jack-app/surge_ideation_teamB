@@ -47,25 +47,25 @@
 				"x": 0,
 				"y": 0,
 				"wireInterface": [true, true, false, false],
-				"texture": "1100.png"
+				"texture": "0011.png"
 			  },
 			  {
 				"x": 1,
 				"y": 0,
 				"wireInterface": [false, false, false, false],
-				"texture": "0000.png"
+				"texture": "0110.png"
 			  },
 			  {
 				"x": 0,
 				"y": 1,
 				"wireInterface": [true, false, true, false],
-				"texture": "1010.png"
+				"texture": "1001.png"
 			  },
 			  {
 				"x": 1,
 				"y": 1,
 				"wireInterface": [false, false, false, false],
-				"texture": "0000.png"
+				"texture": "1100.png"
 			  }
 			]
 		  }
