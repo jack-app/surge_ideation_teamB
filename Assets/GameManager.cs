@@ -113,16 +113,6 @@ public class GameManager : MonoBehaviour
         power_line = new int[(max_x * 2 + 1),(max_y * 2 + 1), 4];
         distance = new int[(max_x * 2 + 1), (max_y * 2 + 1)];
         board = new bool[max_x,max_y];
-        for (int i = 0; i < max_x * 2 + 1; i++)
-        {
-            for (int j = 0; j < max_y * 2 + 1; j++)
-            {
-                for (int k = 0; k < 4; k++)
-                {
-                    power_line[i, j, k] = 0;
-                }
-            }
-        }
         for (int x = 0; x < max_x; x++)
         {
             for (int y = 0; y < max_y; y++)
@@ -142,6 +132,14 @@ public class GameManager : MonoBehaviour
     {
         int[] vx = { 0, 1, 0, -1 };
         int[] vy = { 1, 0, -1, 0 };
+        power_line = new int[(max_x * 2 + 1), (max_y * 2 + 1), 4];
+        for (int x = 0; x < max_x * 2 + 1; x++)
+        {
+            for (int y = 0; y < max_y * 2 + 1; y++)
+            {
+                distance[x, y] = -1;
+            }
+        }
         foreach (Piece pi in pieceScriptList)
         {
             for(int i = 0; i < pi.cells.Count; i++)
@@ -162,14 +160,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        
-        for (int x = 0; x < max_x * 2 + 1; x++)
-        {
-            for (int y = 0; y < max_y * 2 + 1; y++)
-            {
-                distance[x, y] = -1;
-            }
-        }
         distance[sx,sy] = 0;
         Queue<Tuple<int, int>> tq = new Queue<Tuple<int, int>>();
         tq.Enqueue(Tuple.Create(sx, sy));
