@@ -10,6 +10,13 @@ namespace jsontype
 
 {
     [System.Serializable]
+    public class Size
+    {
+        public int x;
+        public int y;
+
+    }
+    [System.Serializable]
     public class Start
     {
         public int x;
@@ -41,6 +48,7 @@ namespace jsontype
     [System.Serializable]
     public class Map
     {
+        public Size size;
         public Start start;
         public Goal goal;
         public List<Electronics> electronics;

@@ -5,8 +5,10 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - jsonsettings: {instanceID: 0}
+  - block: {fileID: 6766234526213780204, guid: 8e9b219232defa84790a70601e60f3bd, type: 3}
   - piece: {instanceID: 0}
-  - block: {fileID: 1526333143793633328, guid: 7b9c3519e74380f43988931a04f4c1e6, type: 3}
+  - wire: {instanceID: 0}
+  - image: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
