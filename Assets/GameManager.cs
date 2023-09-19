@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         
         for(int i = 0;i<obj.pieces.Count;i++){
             int init_x = horizontal_length+3+(i%2)*4;
-            int init_y = vertical_length-2-((int)i/2)*2;
+            int init_y = vertical_length-((int)i/2)*2;
 
             pieceList.Add((GameObject)Instantiate(piece, new Vector3(init_x,init_y,0), Quaternion.identity));
             pieceList[i].name = "Mino" + i.ToString();
