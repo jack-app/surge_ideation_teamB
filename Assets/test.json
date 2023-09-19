@@ -6,11 +6,11 @@
 		},
 		"start" :{ 
 			"x": 1,
-			"y": 0
+			"y": 8
 		},
 		"goal" :{
-			"x": 4,
-			"y": 10 
+			"x": 20,
+			"y": 1 
 		},
 		"electronics" :[
 			{
@@ -18,26 +18,8 @@
 					{
 					"x": 2,
 					"y": 2,
-					"wireInterface": [true, true, false, false],
+					"wireInterface": [true, true, true, true],
 					"texture": "elec1_0_0.png"
-					},
-					{
-					"x": 3,
-					"y": 2,
-					"wireInterface": [false, false, false, false],
-					"texture": "elec1_1_0.png"
-					},
-					{
-					"x": 2,
-					"y": 3,
-					"wireInterface": [true, false, true, false],
-					"texture": "elec1_0_1.png"
-					},
-					{
-					"x": 3,
-					"y": 3,
-					"wireInterface": [false, false, false, false],
-					"texture": "elec1_1_1.png"
 					}
 				]
 			}
@@ -56,7 +38,7 @@
 			  {
 				"x": 1,
 				"y": 0,
-				"wireInterface": [false, false, false, false],
+				"wireInterface": [false, true, false, true],
 				"texture": "0110"
 			  },
 			  {
@@ -180,7 +162,35 @@
 			  {
 				"x": -1,
 				"y": 0,
+				"wireInterface": [false, true, false, true],
+				"texture": "1011"
+			  }
+			]
+		},
+		{
+			"cells": [
+			  {
+				"x": 0,
+				"y": 0,
+				"wireInterface": [true, true, false, true],
+				"texture": "0010"
+			  },
+			  {
+				"x": 1,
+				"y": 0,
+				"wireInterface": [false, true, false, true],
+				"texture": "1110"
+			  },
+			  {
+				"x": 0,
+				"y": 1,
 				"wireInterface": [false, true, true, false],
+				"texture": "1101"
+			  },
+			  {
+				"x": -1,
+				"y": 0,
+				"wireInterface": [false, true, false, true],
 				"texture": "1011"
 			  }
 			]

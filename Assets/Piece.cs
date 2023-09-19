@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
+    public List<GameObject> cells = new List<GameObject>();
+    public List<PieceCell> cellScripts = new List<PieceCell>();
     public GameObject tester;
     public GameManager manager;
     public Vector2 initialPosition = Vector2.zero;
@@ -15,6 +17,7 @@ public class Piece : MonoBehaviour
     public Vector3 rotationPoint;
     public int max_x = 0;
     public int max_y = 0;
+    public int rotate = 0;
 
     private void OnRotate()
     {
@@ -23,6 +26,7 @@ public class Piece : MonoBehaviour
         if (((int)wheel / 90) * 90 != 0)
         {
             transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), ((int)wheel / 90) * 90);
+            rotate = (rotate + 40 + (int)wheel / 90) % 4;
             wheel = 0;
         }
     }
@@ -35,6 +39,7 @@ public class Piece : MonoBehaviour
             float roundY = Mathf.Round(children.transform.position.y + 0.5f) - 0.5f;
             manager.board[(int)roundX, (int)roundY] = true;
         }
+        manager.Bfs();
     }
 
     public void OnRemove()
@@ -74,7 +79,6 @@ public class Piece : MonoBehaviour
     {
         //OnMouseDragで使用した変数worldPositionからマウスの位置を取得し，最も近いセルの中心の座標を返す
         Vector2 nearestCell = new Vector2(Mathf.Round(worldPosition.x+0.5f)-0.5f, Mathf.Round(worldPosition.y+0.5f)-0.5f);
-        Debug.Log(nearestCell);
         return nearestCell;
     }
 
