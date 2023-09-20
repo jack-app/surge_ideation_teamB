@@ -156,8 +156,10 @@ MonoBehaviour:
   block: {fileID: 6766234526213780204, guid: 8e9b219232defa84790a70601e60f3bd, type: 3}
   piece: {fileID: 1252083080173069594, guid: dc18b22fd1a5b6d4d80c2c8ee2a0e493, type: 3}
   wire: {fileID: 2523541067314038120, guid: 9b2da58832626194cb465b3533f3303b, type: 3}
-  blockList: []
+  lightning: {fileID: 7404579919615989471, guid: df953fc0847bf5f408328ce4041b3690, type: 3}
+  lightningParent: {fileID: 1341193106}
   pieceList: []
+  pieceScriptList: []
   wireList: []
   image: {fileID: 0}
 --- !u!4 &66358171
@@ -395,6 +397,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1341193106
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1341193107}
+  m_Layer: 0
+  m_Name: Lightnings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1341193107
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341193106}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -403,3 +436,4 @@ SceneRoots:
   - {fileID: 66358171}
   - {fileID: 1098491640}
   - {fileID: 227086967}
+  - {fileID: 1341193107}

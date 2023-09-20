@@ -39,7 +39,7 @@ public class Piece : MonoBehaviour
             float roundY = Mathf.Round(children.transform.position.y + 0.5f) - 0.5f;
             manager.board[(int)roundX, (int)roundY] = true;
         }
-        manager.Bfs();
+        manager.OnUpdate();
     }
 
     public void OnRemove()
@@ -51,6 +51,7 @@ public class Piece : MonoBehaviour
             if (roundX < 0 || roundX >= max_x || roundY < 0 || roundY >= max_y) continue;
             manager.board[(int)roundX, (int)roundY] = false;
         }
+        manager.OnUpdate();
     }
 
     public bool CanPieceBePlaced()

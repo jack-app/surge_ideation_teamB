@@ -10,12 +10,13 @@ public class PieceCell : MonoBehaviour
     public List<bool> wireInterfase;
     void OnMouseDown()
     {
-        parentScript.OnRemove();
         parentScript.dragging = true;
+        parentScript.OnRemove();
     }
 
     void OnMouseUp()
     {
+        parentScript.dragging = false;
         if (parentScript.CanPieceBePlaced())
         {
             parentScript.OnSet();
@@ -25,7 +26,6 @@ public class PieceCell : MonoBehaviour
         {
             parentScript.MoveToInitialPosition();
         }
-        parentScript.dragging = false;
     }
 
     void OnMouseDrag()
