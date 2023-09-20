@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     public GameObject block;
     public GameObject piece;
     public GameObject wire;
+    public GameObject lightning;
+    public GameObject lightningParent;
     public List<GameObject> pieceList;
     public List<Piece> pieceScriptList;
     public List<GameObject> wireList;
@@ -123,12 +125,22 @@ public class GameManager : MonoBehaviour
     }
     
 
-    void OnUpdate()
+    public void OnUpdate()
     {
-
+        DeleteLightning();
+        Bfs();
     }
 
-    public void Bfs()
+    void DeleteLightning()
+    {
+        foreach (Transform child in lightningParent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+
+    void Bfs()
     {
         int[] vx = { 0, 1, 0, -1 };
         int[] vy = { 1, 0, -1, 0 };
@@ -142,9 +154,12 @@ public class GameManager : MonoBehaviour
         }
         foreach (Piece pi in pieceScriptList)
         {
+            if (pi.dragging)
+            {
+                continue;
+            }
             for(int i = 0; i < pi.cells.Count; i++)
             {
-
                 int roundX = (int)pi.cells[i].transform.position.x;
                 int roundY = (int)pi.cells[i].transform.position.y;
                 if (roundX < 0 || roundX >= max_x || roundY < 0 || roundY >= max_y) break;
@@ -174,6 +189,11 @@ public class GameManager : MonoBehaviour
                 int ny = y + vy[i];
                 if ((0 <= nx && nx <= max_x * 2) && (0 <= ny && ny <= max_y * 2) && power_line[x, y,i] == 1 && distance[nx, ny] == -1)
                 {
+                    GameObject bolt = (GameObject)Instantiate(lightning, new Vector3(0, 0, 0), Quaternion.identity);
+                    bolt.transform.parent = lightningParent.transform;
+                    DigitalRuby.LightningBolt.LightningBoltScript boltScript = bolt.GetComponent<DigitalRuby.LightningBolt.LightningBoltScript>();
+                    boltScript.StartPosition = new Vector3(x/2f, y/2f, -3f);
+                    boltScript.EndPosition = new Vector3(nx/2f, ny/2f, -3f);
                     distance[nx, ny] = distance[x, y] + 1;
                     tq.Enqueue(Tuple.Create(nx, ny));
                 }
