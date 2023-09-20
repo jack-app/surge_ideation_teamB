@@ -5,7 +5,6 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
 using jsontype;
-using static SceneController;
 
 namespace jsontype
 
@@ -74,16 +73,7 @@ namespace jsontype
 public class JsonSettings : MonoBehaviour
 {
     //JSON�t�@�C���̃p�X���L�ڂ���B
-
-    string getStagePath()
-    {
-        string jsonPath = "";
-        jsonPath = "Assets/" + selectedStage.stage + ".json";
-
-        return jsonPath;
-    }
-
-    private string jsonPath;
+    private string jsonPath = "Assets/test.json";
 
 
     // Start is called before the first frame update
@@ -102,8 +92,6 @@ public class JsonSettings : MonoBehaviour
     //JSON�t�@�C����ǂݍ��ށB
     public data loadSettings()
     {
-        jsonPath = getStagePath();
-        Debug.Log(jsonPath);
         //�t�@�C�������Ԉ���Ă�ꍇ�̓G���[���o���Ƃ�
         if (!File.Exists(jsonPath))
         {
@@ -120,5 +108,4 @@ public class JsonSettings : MonoBehaviour
         return obj;
     }
 
-    
 }
