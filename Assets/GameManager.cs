@@ -11,11 +11,11 @@ using jsontype;
 
 public class GameManager : MonoBehaviour
 {
-    // vertical_length,horizontal_lengthはjsonから入手したい
+    // max_x,max_yはjsonから入手したい
     // power_lineとかdistanceの配列の大きさとかは大きい値で初期化かも
     public GameObject jsonsettings;
-    int vertical_length = 0;
-    int horizontal_length = 0;
+    int max_x = 0;
+    int max_y = 0;
     int sx = 0;
     int sy = 0;
     int gx = 0;
@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour
     public GameObject block;
     public GameObject piece;
     public GameObject wire;
-    public List<GameObject> blockList;
     public List<GameObject> pieceList;
+    public List<Piece> pieceScriptList;
     public List<GameObject> wireList;
     public RawImage image;
 
@@ -38,25 +38,26 @@ public class GameManager : MonoBehaviour
         int block_cnt = 0;
         
         for(int i = 0;i<obj.pieces.Count;i++){
-            int init_x = horizontal_length+3+(i%2)*4;
-            int init_y = vertical_length-((int)i/2)*2;
+            int init_x = max_x+3+(i%2)*4;
+            int init_y = max_y-((int)i/2)*2;
 
             pieceList.Add((GameObject)Instantiate(piece, new Vector3(init_x,init_y,0), Quaternion.identity));
             pieceList[i].name = "Mino" + i.ToString();
             pieceList[i].AddComponent<Piece>();
-            Piece pieceScript = pieceList[i].GetComponent<Piece>();
-            pieceScript.max_x = horizontal_length;
-            pieceScript.max_y = vertical_length;
-            pieceScript.initialPosition = new Vector2(init_x, init_y);
+            pieceScriptList.Add(pieceList[i].GetComponent<Piece>());
+            pieceScriptList[i].max_x = max_x;
+            pieceScriptList[i].max_y = max_y;
+            pieceScriptList[i].initialPosition = new Vector2(init_x, init_y);
 
 
             for (int j = 0; j < obj.pieces[i].cells.Count;j++){
                 
                 Vector3 pos = new Vector3(init_x+obj.pieces[i].cells[j].x,init_y+obj.pieces[i].cells[j].y,0.0f);
-                blockList.Add((GameObject)Instantiate(block, pos, Quaternion.identity));
-                blockList.Last().transform.parent = pieceList[i].transform;
-                blockList.Last().name = "Block" + (block_cnt + j).ToString();
-                PieceCell pieceCellScript = blockList.Last().GetComponent<PieceCell>();
+                pieceScriptList[i].cells.Add((GameObject)Instantiate(block, pos, Quaternion.identity));
+                pieceScriptList[i].cells.Last().transform.parent = pieceList[i].transform;
+                pieceScriptList[i].cells.Last().name = "Block" + (block_cnt + j).ToString();
+                PieceCell pieceCellScript = pieceScriptList[i].cells.Last().GetComponent<PieceCell>();
+                pieceScriptList[i].cellScripts.Add(pieceCellScript);
 
                 imagePath = obj.pieces[i].cells[j].texture.ToString();
                 //imagePath = imagePath.Replace(".png","");
@@ -70,7 +71,6 @@ public class GameManager : MonoBehaviour
                 for(int k = 0;k<obj.pieces[i].cells[j].wireInterface.Count;k++){
                     pieceCellScript.wireInterfase.Add(obj.pieces[i].cells[j].wireInterface[k]);
                     if (obj.pieces[i].cells[j].wireInterface[k]){
-                        Debug.Log(k);
                         switch(k){
                             case 0:
                                 //GameObject thumb = (GameObject)Instantiate(wire, pos , Quaternion.Euler(0f,0f,0f));
@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
                         
                         }
 
-                        wireList.Last().transform.parent = blockList.Last().transform;
+                        wireList.Last().transform.parent = pieceScriptList[i].cells.Last().transform;
                     }
                 }
             }
@@ -104,35 +104,18 @@ public class GameManager : MonoBehaviour
 
     void initializeMap(data obj)
     {
-        horizontal_length = obj.map.size.x;
-        vertical_length = obj.map.size.y;
+        max_x = obj.map.size.x;
+        max_y = obj.map.size.y;
         sx = obj.map.start.x;
         sy = obj.map.start.y;
         gx = obj.map.goal.x;
         gy = obj.map.goal.y;
-        power_line = new int[(horizontal_length * 2 + 1),(vertical_length * 2 + 1), 4];
-        distance = new int[horizontal_length,vertical_length];
-        board = new bool[horizontal_length,vertical_length];
-        for (int i = 0; i < horizontal_length * 2 + 1; i++)
+        power_line = new int[(max_x * 2 + 1),(max_y * 2 + 1), 4];
+        distance = new int[(max_x * 2 + 1), (max_y * 2 + 1)];
+        board = new bool[max_x,max_y];
+        for (int x = 0; x < max_x; x++)
         {
-            for (int j = 0; j < vertical_length * 2 + 1; j++)
-            {
-                for (int k = 0; k < 4; k++)
-                {
-                    power_line[i, j, k] = 0;
-                }
-            }
-        }
-        for (int x = 0; x < horizontal_length; x++)
-        {
-            for (int y = 0; y < vertical_length; y++)
-            {
-                distance[x, y] = -1;
-            }
-        }
-        for (int x = 0; x < horizontal_length; x++)
-        {
-            for (int y = 0; y < vertical_length; y++)
+            for (int y = 0; y < max_y; y++)
             {
                 board[x, y] = false;
             }
@@ -145,28 +128,60 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void Bfs()
+    public void Bfs()
     {
+        int[] vx = { 0, 1, 0, -1 };
+        int[] vy = { 1, 0, -1, 0 };
+        power_line = new int[(max_x * 2 + 1), (max_y * 2 + 1), 4];
+        for (int x = 0; x < max_x * 2 + 1; x++)
+        {
+            for (int y = 0; y < max_y * 2 + 1; y++)
+            {
+                distance[x, y] = -1;
+            }
+        }
+        foreach (Piece pi in pieceScriptList)
+        {
+            for(int i = 0; i < pi.cells.Count; i++)
+            {
+
+                int roundX = (int)pi.cells[i].transform.position.x;
+                int roundY = (int)pi.cells[i].transform.position.y;
+                if (roundX < 0 || roundX >= max_x || roundY < 0 || roundY >= max_y) break;
+                for(int j = 0; j < 4; j++)
+                {
+                    if (pi.cellScripts[i].wireInterfase[(j+pi.rotate)%4])
+                    {
+                        power_line[roundX * 2 + 1, roundY * 2 + 1, j] = 1;
+                        power_line[roundX * 2 + 1 + vx[j], roundY * 2 + 1 + vy[j], (j+2)%4] = 1;
+
+                    }
+                }
+            }
+        }
+
+        distance[sx,sy] = 0;
         Queue<Tuple<int, int>> tq = new Queue<Tuple<int, int>>();
         tq.Enqueue(Tuple.Create(sx, sy));
-        int[] vx = { -1, 0, 1, 0 };
-        int[] vy = { 0, 1, 0, -1 };
         while (0 < tq.Count)
         {
             var q = tq.Dequeue();
             int x = q.Item1;
             int y = q.Item2;
-
             for (int i = 0; i < 4; i++)
             {
                 int nx = x + vx[i];
                 int ny = y + vy[i];
-                if ((0 <= nx && nx <= vertical_length * 2) && (0 <= ny && ny <= horizontal_length * 2 + 1) && power_line[nx, ny,i] == 1 && distance[nx, ny] == -1)
+                if ((0 <= nx && nx <= max_x * 2) && (0 <= ny && ny <= max_y * 2) && power_line[x, y,i] == 1 && distance[nx, ny] == -1)
                 {
                     distance[nx, ny] = distance[x, y] + 1;
                     tq.Enqueue(Tuple.Create(nx, ny));
                 }
             }
+        }
+        if (distance[gx, gy] != -1)
+        {
+            Debug.Log("Clear");
         }
     }
 
@@ -178,8 +193,6 @@ public class GameManager : MonoBehaviour
         data obj = jsonsettings.GetComponent<JsonSettings>().loadSettings();
         initializeMap(obj);
         initializePiece(obj);
-        //デバッグに表示する。
-        Debug.Log(obj.map.start.x);
 
         Debug.Log("done");
     }
