@@ -11,6 +11,12 @@ namespace jsontype
 
 {
     [System.Serializable]
+    public class Tile
+    {
+        public string texture;
+
+    }
+    [System.Serializable]
     public class Size
     {
         public int x;
@@ -49,6 +55,7 @@ namespace jsontype
     [System.Serializable]
     public class Map
     {
+        public Tile tile;
         public Size size;
         public Start start;
         public Goal goal;

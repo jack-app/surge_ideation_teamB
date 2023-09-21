@@ -1,5 +1,8 @@
 {
 	"map": {
+		"tile":{
+			"texture": "wood"
+		},
 		"size" :{ 
 			"x": 10,
 			"y": 4

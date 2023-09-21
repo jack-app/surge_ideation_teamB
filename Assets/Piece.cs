@@ -10,7 +10,7 @@ public class Piece : MonoBehaviour
     public List<PieceCell> cellScripts = new List<PieceCell>();
     public GameObject tester;
     public GameManager manager;
-    public Vector2 initialPosition = Vector2.zero;
+    public Vector3 initialPosition = Vector3.zero;
     public Vector3 worldPosition = Vector3.zero;
     public bool dragging = false;
     public float wheel = 0;

@@ -27,8 +27,10 @@ public class GameManager : MonoBehaviour
     public GameObject block;
     public GameObject piece;
     public GameObject wire;
+    public GameObject tile;
     public GameObject lightning;
     public GameObject lightningParent;
+    public GameObject tileParent;
     public List<GameObject> pieceList;
     public List<Piece> pieceScriptList;
     public List<GameObject> wireList;
@@ -40,10 +42,11 @@ public class GameManager : MonoBehaviour
         int block_cnt = 0;
         
         for(int i = 0;i<obj.pieces.Count;i++){
-            int init_x = max_x+3+(i%2)*4;
-            int init_y = max_y-((int)i/2)*2;
+            int init_x = -3+i*2;
+            int init_y = -3;
+            float init_z = -(0.1f * i);
 
-            pieceList.Add((GameObject)Instantiate(piece, new Vector3(init_x,init_y,0), Quaternion.identity));
+            pieceList.Add((GameObject)Instantiate(piece, new Vector3(init_x,init_y,init_z), Quaternion.identity));
             pieceList[i].name = "Mino" + i.ToString();
             pieceList[i].AddComponent<Piece>();
             pieceScriptList.Add(pieceList[i].GetComponent<Piece>());
@@ -54,7 +57,7 @@ public class GameManager : MonoBehaviour
 
             for (int j = 0; j < obj.pieces[i].cells.Count;j++){
                 
-                Vector3 pos = new Vector3(init_x+obj.pieces[i].cells[j].x,init_y+obj.pieces[i].cells[j].y,0.0f);
+                Vector3 pos = new Vector3(init_x+obj.pieces[i].cells[j].x,init_y+obj.pieces[i].cells[j].y,0);
                 pieceScriptList[i].cells.Add((GameObject)Instantiate(block, pos, Quaternion.identity));
                 pieceScriptList[i].cells.Last().transform.parent = pieceList[i].transform;
                 pieceScriptList[i].cells.Last().name = "Block" + (block_cnt + j).ToString();
@@ -78,16 +81,16 @@ public class GameManager : MonoBehaviour
                                 //GameObject thumb = (GameObject)Instantiate(wire, pos , Quaternion.Euler(0f,0f,0f));
                                 //wireList.Add(thumb);
                                 //thumb.transform.parent = blockList[i-1].transform;
-                                wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(0f, 0.25f, -1f), Quaternion.Euler(0f,0f,0f)));
+                                wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(0f, 0.25f, -0.05f), Quaternion.Euler(0f,0f,0f)));
                                 break;
                             case 1:
-                                wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(0.25f, 0f, -1f), Quaternion.Euler(0f,0f,90f)));
+                                wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(0.25f, 0f, -0.05f), Quaternion.Euler(0f,0f,90f)));
                                 break;
                             case 2:
-                                wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(0f, -0.25f, -1f), Quaternion.Euler(0f,0f,180f)));
+                                wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(0f, -0.25f, -0.05f), Quaternion.Euler(0f,0f,180f)));
                                 break;
                             case 3:
-                                wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(-0.25f,0, -1f), Quaternion.Euler(0f,0f,270f)));
+                                wireList.Add((GameObject)Instantiate(wire, pos + new Vector3(-0.25f,0, -0.05f), Quaternion.Euler(0f,0f,270f)));
                                 break;
                             default:
                                 break;
@@ -99,6 +102,7 @@ public class GameManager : MonoBehaviour
                 }
             }
             block_cnt += obj.pieces[i].cells.Count;
+            pieceScriptList[i].MoveToInitialPosition();
         }
         //Debug.Log("ok");
                 
@@ -112,6 +116,35 @@ public class GameManager : MonoBehaviour
         sy = obj.map.start.y;
         gx = obj.map.goal.x;
         gy = obj.map.goal.y;
+
+        GameObject start = (GameObject)Instantiate(tile, new Vector3(sx/2+0.5f, sy/2+0.5f, 1f), Quaternion.identity);
+        start.transform.parent = tileParent.transform;
+        start.name = "start";
+        String target = "start" + "/Canvas/RawImage";
+        RawImage image = GameObject.Find(target).GetComponent<RawImage>();
+        image.texture = Resources.Load<Texture2D>("start");
+
+        GameObject goal = (GameObject)Instantiate(tile, new Vector3(gx/2+0.5f, gy/2+0.5f, 1f), Quaternion.identity);
+        goal.transform.parent = tileParent.transform;
+        goal.name = "goal";
+        target = "goal" + "/Canvas/RawImage";
+        image = GameObject.Find(target).GetComponent<RawImage>();
+        image.texture = Resources.Load<Texture2D>("goal");
+
+        string imagePath = obj.map.tile.texture.ToString();
+        for (int x = 0; x < max_x; x++)
+        {
+            for (int y = 0; y < max_y; y++)
+            {
+                GameObject ti = (GameObject)Instantiate(tile, new Vector3(x+0.5f,y+0.5f, 1f), Quaternion.identity);
+                ti.transform.parent = tileParent.transform;
+                ti.name = "tile" + "_" + x.ToString()+"_"+ y.ToString();
+                target = "tile" + "_" + x.ToString() + "_" + y.ToString() + "/Canvas/RawImage";
+                image = GameObject.Find(target).GetComponent<RawImage>();
+                string path = imagePath + ((x + y) % 2).ToString();
+                image.texture = Resources.Load<Texture2D>(path);
+            }
+        }
         power_line = new int[(max_x * 2 + 1),(max_y * 2 + 1), 4];
         distance = new int[(max_x * 2 + 1), (max_y * 2 + 1)];
         board = new bool[max_x,max_y];
@@ -214,7 +247,7 @@ public class GameManager : MonoBehaviour
         initializeMap(obj);
         initializePiece(obj);
 
-        Debug.Log("done");
+        Debug.Log(obj.map.tile.texture);
     }
 
     // Update is called once per frame
