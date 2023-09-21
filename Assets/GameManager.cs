@@ -44,8 +44,9 @@ public class GameManager : MonoBehaviour
         for(int i = 0;i<obj.pieces.Count;i++){
             int init_x = -3+i*2;
             int init_y = -3;
+            float init_z = -(0.1f * i);
 
-            pieceList.Add((GameObject)Instantiate(piece, new Vector3(init_x,init_y,0), Quaternion.identity));
+            pieceList.Add((GameObject)Instantiate(piece, new Vector3(init_x,init_y,init_z), Quaternion.identity));
             pieceList[i].name = "Mino" + i.ToString();
             pieceList[i].AddComponent<Piece>();
             pieceScriptList.Add(pieceList[i].GetComponent<Piece>());
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
 
             for (int j = 0; j < obj.pieces[i].cells.Count;j++){
                 
-                Vector3 pos = new Vector3(init_x+obj.pieces[i].cells[j].x,init_y+obj.pieces[i].cells[j].y,0.0f);
+                Vector3 pos = new Vector3(init_x+obj.pieces[i].cells[j].x,init_y+obj.pieces[i].cells[j].y,0);
                 pieceScriptList[i].cells.Add((GameObject)Instantiate(block, pos, Quaternion.identity));
                 pieceScriptList[i].cells.Last().transform.parent = pieceList[i].transform;
                 pieceScriptList[i].cells.Last().name = "Block" + (block_cnt + j).ToString();
@@ -101,6 +102,7 @@ public class GameManager : MonoBehaviour
                 }
             }
             block_cnt += obj.pieces[i].cells.Count;
+            pieceScriptList[i].MoveToInitialPosition();
         }
         //Debug.Log("ok");
                 
