@@ -47,24 +47,18 @@ namespace jsontype
 
     }
     [System.Serializable]
-    public class Electronics
-    {
-        public List<Cells> cells;
-
-    }
-    [System.Serializable]
     public class Map
     {
         public Tile tile;
         public Size size;
         public Start start;
         public Goal goal;
-        public List<Electronics> electronics;
 
     }
     [System.Serializable]
     public class Pieces
     {
+        public string type;
         public List<Cells> cells;
         
     }

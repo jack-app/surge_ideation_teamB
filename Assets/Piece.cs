@@ -18,6 +18,7 @@ public class Piece : MonoBehaviour
     public int max_x = 0;
     public int max_y = 0;
     public int rotate = 0;
+    public bool canDrug=true; 
 
     private void OnRotate()
     {
