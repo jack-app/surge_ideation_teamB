@@ -10,12 +10,20 @@ public class PieceCell : MonoBehaviour
     public List<bool> wireInterfase;
     void OnMouseDown()
     {
+        if (!parentScript.canDrug)
+        {
+            return;
+        }
         parentScript.dragging = true;
         parentScript.OnRemove();
     }
 
     void OnMouseUp()
     {
+        if (!parentScript.canDrug)
+        {
+            return;
+        }
         parentScript.dragging = false;
         if (parentScript.CanPieceBePlaced())
         {
@@ -30,9 +38,13 @@ public class PieceCell : MonoBehaviour
 
     void OnMouseDrag()
     {
+        if (!parentScript.canDrug)
+        {
+            return;
+        }
         Vector3 thisPosition = Input.mousePosition;
         parentScript.worldPosition = Camera.main.ScreenToWorldPoint(thisPosition);
-        parentScript.worldPosition.z = -2f;
+        parentScript.worldPosition.z = -3f;
         parentScript.transform.position = parentScript.worldPosition;
     }
     // Start is called before the first frame update

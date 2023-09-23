@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 using static System.Console;
 using jsontype;
 
@@ -34,7 +35,10 @@ public class GameManager : MonoBehaviour
     public List<GameObject> pieceList;
     public List<Piece> pieceScriptList;
     public List<GameObject> wireList;
+    public List<GameObject> elecList;
+    public List<Piece> elecScriptList;
     public RawImage image;
+    public List<Tuple<int,int>> elecposList = new List<Tuple<int, int>>();
 
     void initializePiece(data obj)
     {
@@ -42,9 +46,16 @@ public class GameManager : MonoBehaviour
         int block_cnt = 0;
         
         for(int i = 0;i<obj.pieces.Count;i++){
-            int init_x = -3+i*2;
-            int init_y = -3;
+            float init_x = -3+i*2;
+            float init_y = -3;
             float init_z = -(0.1f * i);
+            if (obj.pieces[i].type == "electronics")
+            {
+                init_x = 0.5f;
+                init_y = 0.5f;
+                init_z = -1;
+                elecposList.Add(Tuple.Create(obj.pieces[i].cells[0].x, obj.pieces[i].cells[0].y));
+            }
 
             pieceList.Add((GameObject)Instantiate(piece, new Vector3(init_x,init_y,init_z), Quaternion.identity));
             pieceList[i].name = "Mino" + i.ToString();
@@ -53,6 +64,11 @@ public class GameManager : MonoBehaviour
             pieceScriptList[i].max_x = max_x;
             pieceScriptList[i].max_y = max_y;
             pieceScriptList[i].initialPosition = new Vector2(init_x, init_y);
+            if (obj.pieces[i].type == "electronics")
+            {
+                pieceScriptList[i].canDrug = false;
+                board[obj.pieces[i].cells[0].x, obj.pieces[i].cells[0].y] = true;
+            }
 
 
             for (int j = 0; j < obj.pieces[i].cells.Count;j++){
@@ -75,7 +91,8 @@ public class GameManager : MonoBehaviour
 
                 for(int k = 0;k<obj.pieces[i].cells[j].wireInterface.Count;k++){
                     pieceCellScript.wireInterfase.Add(obj.pieces[i].cells[j].wireInterface[k]);
-                    if (obj.pieces[i].cells[j].wireInterface[k]){
+                    if (obj.pieces[i].cells[j].wireInterface[k] && obj.pieces[i].type == "mino")
+                    {
                         switch(k){
                             case 0:
                                 //GameObject thumb = (GameObject)Instantiate(wire, pos , Quaternion.Euler(0f,0f,0f));
@@ -102,10 +119,11 @@ public class GameManager : MonoBehaviour
                 }
             }
             block_cnt += obj.pieces[i].cells.Count;
-            pieceScriptList[i].MoveToInitialPosition();
+            if(obj.pieces[i].type == "mino")
+            {
+                pieceScriptList[i].MoveToInitialPosition();
+            }
         }
-        //Debug.Log("ok");
-                
     }
 
     void initializeMap(data obj)
@@ -116,6 +134,16 @@ public class GameManager : MonoBehaviour
         sy = obj.map.start.y;
         gx = obj.map.goal.x;
         gy = obj.map.goal.y;
+        power_line = new int[(max_x * 2 + 1), (max_y * 2 + 1), 4];
+        distance = new int[(max_x * 2 + 1), (max_y * 2 + 1)];
+        board = new bool[max_x, max_y];
+        for (int x = 0; x < max_x; x++)
+        {
+            for (int y = 0; y < max_y; y++)
+            {
+                board[x, y] = false;
+            }
+        }
 
         GameObject start = (GameObject)Instantiate(tile, new Vector3(sx/2+0.5f, sy/2+0.5f, 1f), Quaternion.identity);
         start.transform.parent = tileParent.transform;
@@ -143,16 +171,6 @@ public class GameManager : MonoBehaviour
                 image = GameObject.Find(target).GetComponent<RawImage>();
                 string path = imagePath + ((x + y) % 2).ToString();
                 image.texture = Resources.Load<Texture2D>(path);
-            }
-        }
-        power_line = new int[(max_x * 2 + 1),(max_y * 2 + 1), 4];
-        distance = new int[(max_x * 2 + 1), (max_y * 2 + 1)];
-        board = new bool[max_x,max_y];
-        for (int x = 0; x < max_x; x++)
-        {
-            for (int y = 0; y < max_y; y++)
-            {
-                board[x, y] = false;
             }
         }
     }
@@ -211,6 +229,7 @@ public class GameManager : MonoBehaviour
         distance[sx,sy] = 0;
         Queue<Tuple<int, int>> tq = new Queue<Tuple<int, int>>();
         tq.Enqueue(Tuple.Create(sx, sy));
+        bool clear = true;
         while (0 < tq.Count)
         {
             var q = tq.Dequeue();
@@ -225,16 +244,24 @@ public class GameManager : MonoBehaviour
                     GameObject bolt = (GameObject)Instantiate(lightning, new Vector3(0, 0, 0), Quaternion.identity);
                     bolt.transform.parent = lightningParent.transform;
                     DigitalRuby.LightningBolt.LightningBoltScript boltScript = bolt.GetComponent<DigitalRuby.LightningBolt.LightningBoltScript>();
-                    boltScript.StartPosition = new Vector3(x/2f, y/2f, -3f);
-                    boltScript.EndPosition = new Vector3(nx/2f, ny/2f, -3f);
+                    boltScript.StartPosition = new Vector3(x/2f, y/2f, -2f);
+                    boltScript.EndPosition = new Vector3(nx/2f, ny/2f, -2f);
                     distance[nx, ny] = distance[x, y] + 1;
                     tq.Enqueue(Tuple.Create(nx, ny));
                 }
             }
         }
-        if (distance[gx, gy] != -1)
+        for(int i = 0; i < elecposList.Count; i++)
+        {
+            if (distance[elecposList[i].Item1*2+1, elecposList[i].Item2*2+1] == -1)
+            {
+                clear = false;
+            }
+        }
+        if (distance[gx, gy] != -1 && clear)
         {
             Debug.Log("Clear");
+            SceneManager.LoadScene("ResultScene");
         }
     }
 
