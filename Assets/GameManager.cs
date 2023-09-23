@@ -273,7 +273,7 @@ public class GameManager : MonoBehaviour
     IEnumerator SceneChange()
     {
         yield return new WaitForSeconds(1);
-        SceneManager.LoadScene("ResultScene");
+        SceneManager.LoadScene("ResultScene",LoadSceneMode.Additive);
     }
 
 
