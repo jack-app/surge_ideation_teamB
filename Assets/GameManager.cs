@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 using static System.Console;
 using jsontype;
 
@@ -260,6 +261,7 @@ public class GameManager : MonoBehaviour
         if (distance[gx, gy] != -1 && clear)
         {
             Debug.Log("Clear");
+            SceneManager.LoadScene("ResultScene");
         }
     }
 
