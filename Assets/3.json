@@ -21,17 +21,191 @@
 			"type": "mino",
 			"cells": [
 			  {
+				"x": 0,
+				"y": 1,
+				"wireInterface": [true, true, true, true],
+				"texture": "1101"
+			  },
+			  {
+				"x": 0,
+				"y": 0,
+				"wireInterface": [true, false, false, true],
+				"texture": "0110"
+			  },
+			  {
 				"x": -1,
+				"y": 0,
+				"wireInterface": [false, true, true, false],
+				"texture": "1001"
+			  },
+			  {
+				"x": -1,
+				"y": -1,
+				"wireInterface": [true, true, true, true],
+				"texture": "0111"
+			  }
+			]
+		},
+		{
+			"type": "mino",
+			"cells": [
+			  {
+				"x": 1,
+				"y": -1,
+				"wireInterface": [false, true, false, true],
+				"texture": "1110"
+			  },
+			  {
+				"x": 0,
+				"y": -1,
+				"wireInterface": [true, true, false, false],
+				"texture": "0011"
+			  },
+			  {
+				"x": 0,
+				"y": 0,
+				"wireInterface": [true, true, true, true],
+				"texture": "0100"
+			  },
+			  {
+				"x": -1,
+				"y": 0,
+				"wireInterface": [false, true, false, true],
+				"texture": "1011"
+			  },
+			  {
+				"x": 0,
+				"y": 1,
+				"wireInterface": [false, false, true, true],
+				"texture": "1101"
+			  }
+			]
+		},
+		{
+			"type": "mino",
+			"cells": [
+			  {
+				"x": 0,
+				"y": 1,
+				"wireInterface": [true, false, true, false],
+				"texture": "1101"
+			  },
+			  {
+				"x": 0,
+				"y": 0,
+				"wireInterface": [true, true, false, false],
+				"texture": "0011"
+			  },
+			  {
+				"x": 1,
+				"y": 0,
+				"wireInterface": [false, true, false, true],
+				"texture": "1010"
+			  },
+			  {
+				"x": 2,
+				"y": 0,
+				"wireInterface": [false, true, false, true],
+				"texture": "1110"
+			  }
+			]
+		},
+		{
+			"type": "mino",
+			"cells": [
+			  {
+				"x": -1,
+				"y": -1,
+				"wireInterface": [false, true, false, true],
+				"texture": "1011"
+			  },
+			  {
+				"x": 1,
+				"y": 0,
+				"wireInterface": [true, false, true, true],
+				"texture": "0110"
+			  },
+			  {
+				"x": 0,
+				"y": 0,
+				"wireInterface": [false, true, true, false],
+				"texture": "1001"
+			  },
+			  {
+				"x": 0,
+				"y": -1,
+				"wireInterface": [true, true, false, true],
+				"texture": "0110"
+			  },
+			  {
+				"x": 1,
+				"y": 1,
+				"wireInterface": [true, false, true, false],
+				"texture": "1101"
+			  }
+			]
+		},
+		{
+			"type": "mino",
+			"cells": [
+			  {
+				"x": 0,
 				"y": -1,
 				"wireInterface": [true, false, true, false],
 				"texture": "0111"
 			  },
 			  {
-				"x": -1,
+				"x": 0,
 				"y": 0,
-				"wireInterface": [true, true, true, false],
+				"wireInterface": [false, true, true, false],
 				"texture": "1001"
 			  },
+			  {
+				"x": 1,
+				"y": 0,
+				"wireInterface": [true, false, false, true],
+				"texture": "0110"
+			  },
+			  {
+				"x": 1,
+				"y": 1,
+				"wireInterface": [true, true, true, false],
+				"texture": "1101"
+			  }
+			]
+		},
+		{
+			"type": "mino",
+			"cells": [
+			  {
+				"x": 1,
+				"y": -1,
+				"wireInterface": [false, true, false, true],
+				"texture": "1110"
+			  },
+			  {
+				"x": 0,
+				"y": -1,
+				"wireInterface": [true, true, false, true],
+				"texture": "0011"
+			  },
+			  {
+				"x": 0,
+				"y": 0,
+				"wireInterface": [true, false, true, false],
+				"texture": "0101"
+			  },
+			  {
+				"x": 0,
+				"y": 1,
+				"wireInterface": [true, true, true, true],
+				"texture": "1101"
+			  }
+			]
+		},
+		{
+			"type": "mino",
+			"cells": [
 			  {
 				"x": 0,
 				"y": 0,
@@ -39,216 +213,13 @@
 				"texture": "1010"
 			  },
 			  {
-				"x": 1,
-				"y": 0,
-				"wireInterface": [true, true, true, true],
-				"texture": "1110"
-			  }
-			]
-		},
-		{
-			"type": "mino",
-			"cells": [
-			  {
 				"x": -1,
-				"y": -1,
-				"wireInterface": [true, false, true, false],
-				"texture": "0111"
-			  },
-			  {
-				"x": -1,
-				"y": 0,
-				"wireInterface": [false, true, true, false],
-				"texture": "1001"
-			  },
-			  {
-				"x": 0,
-				"y": 0,
-				"wireInterface": [true, true, true, true],
-				"texture": "0010"
-			  },
-			  {
-				"x": 0,
 				"y": 1,
 				"wireInterface": [true, false, true, false],
 				"texture": "1101"
 			  },
 			  {
-				"x": 1,
-				"y": 0,
-				"wireInterface": [true, false, false, true],
-				"texture": "1110"
-			  }
-			]
-		},
-		{
-			"type": "mino",
-			"cells": [
-			  {
 				"x": -1,
-				"y": 0,
-				"wireInterface": [false, true, false, true],
-				"texture": "1011"
-			  },
-			  {
-				"x": 0,
-				"y": 0,
-				"wireInterface": [true, false, false, true],
-				"texture": "0110"
-			  },
-			  {
-				"x": 0,
-				"y": 1,
-				"wireInterface": [true, false, true, false],
-				"texture": "0101"
-			  },
-			  {
-				"x": 0,
-				"y": 2,
-				"wireInterface": [true, false, true, false],
-				"texture": "1101"
-			  }
-			]
-		},
-		{
-			"type": "mino",
-			"cells": [
-			  {
-				"x": -1,
-				"y": 0,
-				"wireInterface": [true, true, true, true],
-				"texture": "1011"
-			  },
-			  {
-				"x": 0,
-				"y": 0,
-				"wireInterface": [false, true, true, true],
-				"texture": "1000"
-			  },
-			  {
-				"x": 0,
-				"y": -1,
-				"wireInterface": [true, false, true, false],
-				"texture": "0111"
-			  },
-			  {
-				"x": 1,
-				"y": 0,
-				"wireInterface": [false, false, true, true],
-				"texture": "1110"
-			  }
-			]
-		},
-		{
-			"type": "mino",
-			"cells": [
-			  {
-				"x": 0,
-				"y": -1,
-				"wireInterface": [true, false, true, false],
-				"texture": "0111"
-			  },
-			  {
-				"x": 0,
-				"y": 0,
-				"wireInterface": [false, true, true, false],
-				"texture": "1001"
-			  },
-			  {
-				"x": 1,
-				"y": 0,
-				"wireInterface": [true, false, false, true],
-				"texture": "0110"
-			  },
-			  {
-				"x": 1,
-				"y": 1,
-				"wireInterface": [true, true, true, false],
-				"texture": "1101"
-			  }
-			]
-		},
-		{
-			"type": "mino",
-			"cells": [
-			  {
-				"x": -1,
-				"y": -1,
-				"wireInterface": [false, true, false, true],
-				"texture": "1011"
-			  },
-			  {
-				"x": 0,
-				"y": -1,
-				"wireInterface": [true, false, false, true],
-				"texture": "0110"
-			  },
-			  {
-				"x": 0,
-				"y": 0,
-				"wireInterface": [true, false, true, false],
-				"texture": "0101"
-			  },
-			  {
-				"x": 0,
-				"y": 1,
-				"wireInterface": [true, true, true, true],
-				"texture": "1001"
-			  },
-			  {
-				"x": 1,
-				"y": 1,
-				"wireInterface": [false, true, true, true],
-				"texture": "1110"
-			  }
-			]
-		},
-		{
-			"type": "mino",
-			"cells": [
-			  {
-				"x": -1,
-				"y": 0,
-				"wireInterface": [true, true, true, true],
-				"texture": "1011"
-			  },
-			  {
-				"x": 0,
-				"y": 0,
-				"wireInterface": [false, false, true, true],
-				"texture": "1100"
-			  },
-			  {
-				"x": 0,
-				"y": -1,
-				"wireInterface": [true, true, false, false],
-				"texture": "0011"
-			  },
-			  {
-				"x": 1,
-				"y": -1,
-				"wireInterface": [true, true, true, true],
-				"texture": "1110"
-			  }
-			]
-		},
-		{
-			"type": "mino",
-			"cells": [
-			  {
-				"x": -1,
-				"y": 1,
-				"wireInterface": [false, true, false, true],
-				"texture": "1011"
-			  },
-			  {
-				"x": 0,
-				"y": 1,
-				"wireInterface": [false, true, true, true],
-				"texture": "1100"
-			  },
-			  {
-				"x": 0,
 				"y": 0,
 				"wireInterface": [true, true, false, false],
 				"texture": "0011"
@@ -256,14 +227,43 @@
 			  {
 				"x": 1,
 				"y": 0,
+				"wireInterface": [true, true, true, true],
+				"texture": "1100"
+			  },
+			  {
+				"x": 1,
+				"y": -1,
 				"wireInterface": [true, false, true, true],
-				"texture": "1100"
+				"texture": "0111"
+			  }
+			]
+		},
+		{
+			"type": "mino",
+			"cells": [
+			  {
+				"x": 0,
+				"y": -1,
+				"wireInterface": [true, true, true, true],
+				"texture": "0111"
+			  },
+			  {
+				"x": 0,
+				"y": 0,
+				"wireInterface": [true, true, true, false],
+				"texture": "0001"
 			  },
 			  {
 				"x": 1,
-				"y": -1,
-				"wireInterface": [true, false, true, false],
-				"texture": "0111"
+				"y": 0,
+				"wireInterface": [false, true, false, true],
+				"texture": "1110"
+			  },
+			  {
+				"x": 0,
+				"y": 1,
+				"wireInterface": [false, true, true, false],
+				"texture": "1101"
 			  }
 			]
 		},
