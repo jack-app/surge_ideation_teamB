@@ -160,9 +160,12 @@ MonoBehaviour:
   lightning: {fileID: 7404579919615989471, guid: df953fc0847bf5f408328ce4041b3690, type: 3}
   lightningParent: {fileID: 1341193106}
   tileParent: {fileID: 229350949}
+  explosion: {fileID: 2247196528936124378, guid: 25b12fee994e8574e81a5b5321bd2aba, type: 3}
   pieceList: []
   pieceScriptList: []
   wireList: []
+  elecList: []
+  elecScriptList: []
   image: {fileID: 0}
 --- !u!4 &66358171
 Transform:
