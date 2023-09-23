@@ -250,7 +250,7 @@
 			  {
 				"x": 1,
 				"y": 0,
-				"wireInterface": [false, false, true, true],
+				"wireInterface": [true, false, false, true],
 				"texture": "0110"
 			  },
 			  {

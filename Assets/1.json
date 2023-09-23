@@ -174,7 +174,7 @@
 			  {
 				"x": 0,
 				"y": 0,
-				"wireInterface": [true, false, true, true],
+				"wireInterface": [true, true, true, true],
 				"texture": "0001"
 			  },
 			  {
