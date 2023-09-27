@@ -252,16 +252,25 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        for (int i = 0; i < elecposList.Count; i++)
+        int furnitureNum = 0;
+        //for (int i = 0; i < elecposList.Count; i++)
+        //{
+            //if (distance[elecposList[i].Item1 * 2 + 1, elecposList[i].Item2 * 2 + 1] == -1)
+           // {
+                //clear = false;
+            //}
+        //}
+        if (distance[gx, gy] != -1)
         {
-            if (distance[elecposList[i].Item1 * 2 + 1, elecposList[i].Item2 * 2 + 1] == -1)
-            {
-                clear = false;
+            for (int i = 0; i < elecposList.Count; i++)
+            { 
+                if (distance[elecposList[i].Item1 * 2 + 1, elecposList[i].Item2 * 2 + 1] != -1)
+                {
+                    furnitureNum++;
+                }
             }
-        }
-        if (distance[gx, gy] != -1 && clear)
-        {
             Debug.Log("Clear");
+            Debug.Log(furnitureNum);
             for (int i = 0; i < elecposList.Count; i++)
             {
                 Instantiate(explosion, new Vector3(elecposList[i].Item1 + 0.5f, elecposList[i].Item2 + 0.5f, -20f), Quaternion.identity);
