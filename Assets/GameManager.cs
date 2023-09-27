@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
 using static System.Console;
 using jsontype;
-
+using JetBrains.Annotations;
 
 public class GameManager : MonoBehaviour
 {
@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
+    public static int furnitureNum = 0;
     void Bfs()
     {
         int[] vx = { 0, 1, 0, -1 };
@@ -252,7 +252,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        int furnitureNum = 0;
+      
         //for (int i = 0; i < elecposList.Count; i++)
         //{
             //if (distance[elecposList[i].Item1 * 2 + 1, elecposList[i].Item2 * 2 + 1] == -1)
