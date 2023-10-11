@@ -167,6 +167,7 @@ MonoBehaviour:
   elecList: []
   elecScriptList: []
   image: {fileID: 0}
+  mainCamera: {fileID: 519420031}
 --- !u!4 &66358171
 Transform:
   m_ObjectHideFlags: 0
@@ -274,7 +275,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 18
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

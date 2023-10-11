@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     public List<Piece> elecScriptList;
     public RawImage image;
     public List<Tuple<int, int>> elecposList = new List<Tuple<int, int>>();
+    public Camera mainCamera;
 
     void initializePiece(data obj)
     {
@@ -174,6 +175,12 @@ public class GameManager : MonoBehaviour
                 image.texture = Resources.Load<Texture2D>(path);
             }
         }
+
+        float ratio = Math.Max(Math.Max(max_x/20f,max_y/8f),1f);
+        mainCamera.gameObject.transform.position = new Vector3(max_x/2f,max_y/2f+1f,-10f);
+        mainCamera.orthographicSize = 18*ratio;
+        //Image backimage = GameObject.Find("Main Camera/Images/カミナリくん　全体イメージ_4").GetComponent<Image>();
+        //backimage.rectTransform.scale = new Vector2(ratio*backimage.rectTransform.scale.x,ratio*backimage.rectTransform.scale.y);
     }
 
 
