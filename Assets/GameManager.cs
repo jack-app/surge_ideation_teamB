@@ -48,8 +48,18 @@ public class GameManager : MonoBehaviour
         int block_cnt = 0;
 
         for (int i = 0; i < obj.pieces.Count; i++) {
-            float init_x = -3 + i * 2;
-            float init_y = -3;
+            //sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+            max_x = obj.map.size.x;
+            max_y = obj.map.size.y;
+
+            float ratio = Math.Max(Math.Max(max_x/20f,max_y/8f),1f);
+
+            //float init_x = -3 + i * 2;
+            float init_x = max_x * 0.5f + (i - obj.pieces.Count/2+2f)*2*ratio;
+
+            //float init_y = -3;
+            float init_y = max_y/2 - 5 * ratio;
+
             float init_z = -(0.1f * i);
             if (obj.pieces[i].type == "electronics")
             {
