@@ -34,6 +34,7 @@ public class Piece : MonoBehaviour
 
     public void OnSet()
     {
+        //ピースを配置
         foreach (Transform children in transform)
         {
             float roundX = Mathf.Round(children.transform.position.x + 0.5f) - 0.5f;
@@ -45,6 +46,7 @@ public class Piece : MonoBehaviour
 
     public void OnRemove()
     {
+        //ピースをボードから取り除く
         foreach (Transform children in transform)
         {
             float roundX = Mathf.Round(children.transform.position.x + 0.5f) - 0.5f;
@@ -58,7 +60,6 @@ public class Piece : MonoBehaviour
     public bool CanPieceBePlaced()
     {
         //おけるマスかどうかの判定を行う
-        //Todo マスの置ける範囲をGameManagerから取ってくる
         foreach (Transform children in transform)
         {
             float roundX = Mathf.Round(children.transform.position.x+0.5f)-0.5f;
