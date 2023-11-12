@@ -19,10 +19,11 @@ public class Piece : MonoBehaviour
     public int max_y = 0;
     public int rotate = 0;
     public bool canDrug=true; 
+    public bool smallen=true;
 
     private void OnRotate()
     {
-        //‰ñ“]‚Ìæ“¾
+        //ï¿½ï¿½]ï¿½Ìæ“¾
         wheel += Input.GetAxis("Mouse ScrollWheel")*300;
         if (((int)wheel / 90) * 90 != 0)
         {
@@ -57,14 +58,14 @@ public class Piece : MonoBehaviour
 
     public bool CanPieceBePlaced()
     {
-        //‚¨‚¯‚éƒ}ƒX‚©‚Ç‚¤‚©‚Ì”»’è‚ğs‚¤
-        //Todo ƒ}ƒX‚Ì’u‚¯‚é”ÍˆÍ‚ğGameManager‚©‚çæ‚Á‚Ä‚­‚é
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½}ï¿½Xï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½Ì”ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½
+        //Todo ï¿½}ï¿½Xï¿½Ì’uï¿½ï¿½ï¿½ï¿½ÍˆÍ‚ï¿½GameManagerï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
         foreach (Transform children in transform)
         {
             float roundX = Mathf.Round(children.transform.position.x+0.5f)-0.5f;
             float roundY = Mathf.Round(children.transform.position.y+0.5f)-0.5f;
 
-            // mino‚ªƒXƒe[ƒW‚æ‚è‚Í‚İo‚³‚È‚¢‚æ‚¤‚É§Œä
+            // minoï¿½ï¿½ï¿½Xï¿½eï¿½[ï¿½Wï¿½ï¿½ï¿½Í‚İoï¿½ï¿½ï¿½È‚ï¿½ï¿½æ‚¤ï¿½Éï¿½ï¿½ï¿½
             if (roundX < 0 || roundX >= max_x || roundY < 0 || roundY >= max_y)
             {
                 return false;
@@ -79,7 +80,7 @@ public class Piece : MonoBehaviour
 
     public Vector2 GetNearestCell()
     {
-        //OnMouseDrag‚Åg—p‚µ‚½•Ï”worldPosition‚©‚çƒ}ƒEƒX‚ÌˆÊ’u‚ğæ“¾‚µCÅ‚à‹ß‚¢ƒZƒ‹‚Ì’†S‚ÌÀ•W‚ğ•Ô‚·
+        //OnMouseDragï¿½Ågï¿½pï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½worldPositionï¿½ï¿½ï¿½ï¿½}ï¿½Eï¿½Xï¿½ÌˆÊ’uï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½Cï¿½Å‚ï¿½ï¿½ß‚ï¿½ï¿½Zï¿½ï¿½ï¿½Ì’ï¿½ï¿½Sï¿½Ìï¿½ï¿½Wï¿½ï¿½Ô‚ï¿½
         Vector2 nearestCell = new Vector2(Mathf.Round(worldPosition.x+0.5f)-0.5f, Mathf.Round(worldPosition.y+0.5f)-0.5f);
         return nearestCell;
     }
@@ -104,6 +105,16 @@ public class Piece : MonoBehaviour
         if (dragging)
         {
             OnRotate();
+            if (smallen==false && canDrug){
+                this.transform.localScale = Vector3.one;
+            }
+            smallen = true;
+        }
+        else{
+            if (smallen && canDrug && this.transform.position == initialPosition){
+                this.transform.localScale = Vector3.one * 0.5f;
+            }
+            smallen = false;
         }
     }
 }
