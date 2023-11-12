@@ -260,6 +260,15 @@ public class GameManager : MonoBehaviour
         if (distance[gx, gy] != -1 && clear)
         {
             Debug.Log("Clear");
+            for (int i = 0; i < lightningParent.transform.childCount; i++)
+            {
+                var bolt = lightningParent.transform.GetChild(i).gameObject;
+                var renderer = bolt.GetComponent<LineRenderer>();
+                renderer.startWidth = 0.2f;                   // 開始点の太さを0.1にする
+                renderer.endWidth = 0.2f;
+                DigitalRuby.LightningBolt.LightningBoltScript boltScript = bolt.GetComponent<DigitalRuby.LightningBolt.LightningBoltScript>();
+                boltScript.ChaosFactor = 0.7f;
+            }
             for (int i = 0; i < elecposList.Count; i++)
             {
                 Instantiate(explosion, new Vector3(elecposList[i].Item1 + 0.5f, elecposList[i].Item2 + 0.5f, -20f), Quaternion.identity);
