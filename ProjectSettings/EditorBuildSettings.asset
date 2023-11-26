@@ -17,4 +17,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ResultScene.unity
     guid: 5e55091c8e725f141a62716a32eb410a
+  - enabled: 1
+    path: Assets/Scenes/Result1ScaneStar1.unity
+    guid: 982b32f01622c884cafb31949dece548
+  - enabled: 1
+    path: Assets/Scenes/Result2SceneStar.unity
+    guid: 87419d9af5c941e48a321bba04e28a79
+  - enabled: 1
+    path: Assets/Scenes/Result3SceneStar.unity
+    guid: b5d5bd660c4669740add9da19a59002a
+  - enabled: 1
+    path: Assets/Scenes/Result4SceneStar.unity
+    guid: 5ca35e0d53cc00a469c655a62c4b8164
+  - enabled: 1
+    path: Assets/Scenes/Result5SceneStar.unity
+    guid: 507b5e85b54cbac4db57a630419fd3af
   m_configObjects: {}

@@ -282,7 +282,28 @@ public class GameManager : MonoBehaviour
     IEnumerator SceneChange()
     {
         yield return new WaitForSeconds(1);
-        SceneManager.LoadScene("ResultScene",LoadSceneMode.Additive);
+        //*ceneManager.LoadScene("ResultScene", LoadSceneMode.Additive);*/
+        if (furnitureNum == 1)
+        {
+            SceneManager.LoadScene("Result1SceneStar1", LoadSceneMode.Additive);
+        }
+        if (furnitureNum == 2)
+        {
+            SceneManager.LoadScene("Result2SceneStar", LoadSceneMode.Additive);
+        }
+        if (furnitureNum == 3)
+        {
+            SceneManager.LoadScene("Result3SceneStar", LoadSceneMode.Additive);
+        }
+        if (furnitureNum == 4)
+        {
+            SceneManager.LoadScene("Result4SceneStar", LoadSceneMode.Additive);
+        }
+        if (furnitureNum == 5)
+        {
+            SceneManager.LoadScene("Result5SceneStar", LoadSceneMode.Additive);
+        }
+
     }
 
 
