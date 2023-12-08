@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public GameObject lightningParent;
     public GameObject tileParent;
     public GameObject explosion;
+    public GameObject kaminarikun;
     public List<GameObject> pieceList;
     public List<Piece> pieceScriptList;
     public List<GameObject> wireList;
@@ -148,18 +149,13 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        GameObject start = (GameObject)Instantiate(tile, new Vector3(sx / 2 + 0.5f, sy / 2 + 0.5f, 1f), Quaternion.identity);
-        start.transform.parent = tileParent.transform;
-        start.name = "start";
-        String target = "start" + "/Canvas/RawImage";
-        RawImage image = GameObject.Find(target).GetComponent<RawImage>();
-        image.texture = Resources.Load<Texture2D>("start");
+        Instantiate(kaminarikun, new Vector3(sx / 2 + 0.5f, sy / 2 + 1f, 0f), Quaternion.identity);
 
         GameObject goal = (GameObject)Instantiate(tile, new Vector3(gx / 2 + 0.5f, gy / 2 + 0.5f, 1f), Quaternion.identity);
         goal.transform.parent = tileParent.transform;
         goal.name = "goal";
-        target = "goal" + "/Canvas/RawImage";
-        image = GameObject.Find(target).GetComponent<RawImage>();
+        String target = "goal" + "/Canvas/RawImage";
+        RawImage image = GameObject.Find(target).GetComponent<RawImage>();
         image.texture = Resources.Load<Texture2D>("goal");
 
         string imagePath = obj.map.tile.texture.ToString();
@@ -264,6 +260,15 @@ public class GameManager : MonoBehaviour
         if (distance[gx, gy] != -1 && clear)
         {
             Debug.Log("Clear");
+            for (int i = 0; i < lightningParent.transform.childCount; i++)
+            {
+                var bolt = lightningParent.transform.GetChild(i).gameObject;
+                var renderer = bolt.GetComponent<LineRenderer>();
+                renderer.startWidth = 0.2f;                   // 開始点の太さを0.1にする
+                renderer.endWidth = 0.2f;
+                DigitalRuby.LightningBolt.LightningBoltScript boltScript = bolt.GetComponent<DigitalRuby.LightningBolt.LightningBoltScript>();
+                boltScript.ChaosFactor = 0.7f;
+            }
             for (int i = 0; i < elecposList.Count; i++)
             {
                 Instantiate(explosion, new Vector3(elecposList[i].Item1 + 0.5f, elecposList[i].Item2 + 0.5f, -20f), Quaternion.identity);

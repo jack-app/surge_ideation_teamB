@@ -161,6 +161,7 @@ MonoBehaviour:
   lightningParent: {fileID: 1341193106}
   tileParent: {fileID: 229350949}
   explosion: {fileID: 2247196528936124378, guid: 25b12fee994e8574e81a5b5321bd2aba, type: 3}
+  kaminarikun: {fileID: 641740289502295820, guid: 16ad859fa010992479d95c8059a0ba8c, type: 3}
   pieceList: []
   pieceScriptList: []
   wireList: []
