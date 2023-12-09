@@ -76,7 +76,7 @@ public class JsonSettings : MonoBehaviour
 {
     //JSON�t�@�C���̃p�X���L�ڂ���B
 
-    string getStagePath()
+    public string getStagePath()
     {
         string jsonPath = "";
         jsonPath = "Assets/" + selectedStage.stage + ".json";
@@ -120,6 +120,7 @@ public class JsonSettings : MonoBehaviour
 
         return obj;
     }
+
 
     
 }

@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
 using static System.Console;
 using jsontype;
-
+using TMPro;
+using System.Diagnostics;
 
 public class GameManager : MonoBehaviour
 {
@@ -210,6 +211,10 @@ public class GameManager : MonoBehaviour
         mainCamera.orthographicSize = 18*ratio;
         //Image backimage = GameObject.Find("Main Camera/Images/カミナリくん　全体イメージ_4").GetComponent<Image>();
         //backimage.rectTransform.scale = new Vector2(ratio*backimage.rectTransform.scale.x,ratio*backimage.rectTransform.scale.y);
+
+        string stageNum = jsonsettings.GetComponent<JsonSettings>().getStagePath().Substring(7,1);
+        GameObject.Find("Main Camera/Canvas/RawImage (2)/Text (TMP)").GetComponent<TextMeshProUGUI>().SetText(stageNum);
+       // UnityEngine.Debug.Log(obj);
     }
 
 
@@ -297,7 +302,7 @@ public class GameManager : MonoBehaviour
         }
         if (distance[gx, gy] != -1 && clear)
         {
-            Debug.Log("Clear");
+           // Debug.Log("Clear");
             for (int i = 0; i < elecposList.Count; i++)
             {
                 Instantiate(explosion, new Vector3(elecposList[i].Item1 + 0.5f, elecposList[i].Item2 + 0.5f, -20f), Quaternion.identity);
@@ -322,7 +327,7 @@ public class GameManager : MonoBehaviour
         initializeMap(obj);
         initializePiece(obj);
 
-        Debug.Log(obj.map.tile.texture);
+       // Debug.Log(obj.map.tile.texture);
     }
 
     // Update is called once per frame
