@@ -212,7 +212,7 @@ public class GameManager : MonoBehaviour
 
         string stageNum = jsonsettings.GetComponent<JsonSettings>().getStagePath().Substring(7,1);
         GameObject.Find("Main Camera/Canvas/RawImage (2)/Text (TMP)").GetComponent<TextMeshProUGUI>().SetText(stageNum);
-       // UnityEngine.Debug.Log(obj);
+        // UnityEngine.Debug.Log(obj);
     }
 
 
@@ -300,7 +300,7 @@ public class GameManager : MonoBehaviour
         }
         if (distance[gx, gy] != -1 && clear)
         {
-            Debug.Log("Clear");
+            UnityEngine.Debug.Log("Clear");
             for (int i = 0; i < lightningParent.transform.childCount; i++)
             {
                 var bolt = lightningParent.transform.GetChild(i).gameObject;
