@@ -10,6 +10,7 @@ using static System.Console;
 using jsontype;
 using TMPro;
 using System.Diagnostics;
+using JetBrains.Annotations;
 
 public class GameManager : MonoBehaviour
 {
@@ -230,7 +231,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
+    public static int furnitureNum = 0;
     void Bfs()
     {
         int[] vx = { 0, 1, 0, -1 };
@@ -291,25 +292,25 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        for (int i = 0; i < elecposList.Count; i++)
+      
+        //for (int i = 0; i < elecposList.Count; i++)
+        //{
+            //if (distance[elecposList[i].Item1 * 2 + 1, elecposList[i].Item2 * 2 + 1] == -1)
+           // {
+                //clear = false;
+            //}
+        //}
+        if (distance[gx, gy] != -1)
         {
-            if (distance[elecposList[i].Item1 * 2 + 1, elecposList[i].Item2 * 2 + 1] == -1)
-            {
-                clear = false;
+            for (int i = 0; i < elecposList.Count; i++)
+            { 
+                if (distance[elecposList[i].Item1 * 2 + 1, elecposList[i].Item2 * 2 + 1] != -1)
+                {
+                    furnitureNum++;
+                }
             }
-        }
-        if (distance[gx, gy] != -1 && clear)
-        {
-            UnityEngine.Debug.Log("Clear");
-            for (int i = 0; i < lightningParent.transform.childCount; i++)
-            {
-                var bolt = lightningParent.transform.GetChild(i).gameObject;
-                var renderer = bolt.GetComponent<LineRenderer>();
-                renderer.startWidth = 0.2f;                   // 開始点の太さを0.1にする
-                renderer.endWidth = 0.2f;
-                DigitalRuby.LightningBolt.LightningBoltScript boltScript = bolt.GetComponent<DigitalRuby.LightningBolt.LightningBoltScript>();
-                boltScript.ChaosFactor = 0.7f;
-            }
+            Debug.Log("Clear");
+            Debug.Log(furnitureNum);
             for (int i = 0; i < elecposList.Count; i++)
             {
                 Instantiate(explosion, new Vector3(elecposList[i].Item1 + 0.5f, elecposList[i].Item2 + 0.5f, -20f), Quaternion.identity);
@@ -321,7 +322,28 @@ public class GameManager : MonoBehaviour
     IEnumerator SceneChange()
     {
         yield return new WaitForSeconds(1);
-        SceneManager.LoadScene("ResultScene",LoadSceneMode.Additive);
+        //*ceneManager.LoadScene("ResultScene", LoadSceneMode.Additive);*/
+        if (furnitureNum == 1)
+        {
+            SceneManager.LoadScene("Result1SceneStar1", LoadSceneMode.Additive);
+        }
+        if (furnitureNum == 2)
+        {
+            SceneManager.LoadScene("Result2SceneStar", LoadSceneMode.Additive);
+        }
+        if (furnitureNum == 3)
+        {
+            SceneManager.LoadScene("Result3SceneStar", LoadSceneMode.Additive);
+        }
+        if (furnitureNum == 4)
+        {
+            SceneManager.LoadScene("Result4SceneStar", LoadSceneMode.Additive);
+        }
+        if (furnitureNum == 5)
+        {
+            SceneManager.LoadScene("Result5SceneStar", LoadSceneMode.Additive);
+        }
+
     }
 
 
@@ -334,7 +356,7 @@ public class GameManager : MonoBehaviour
         initializeMap(obj);
         initializePiece(obj);
 
-       // Debug.Log(obj.map.tile.texture);
+        Debug.Log(obj.map.tile.texture);
     }
 
     // Update is called once per frame
