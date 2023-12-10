@@ -309,8 +309,8 @@ public class GameManager : MonoBehaviour
                     furnitureNum++;
                 }
             }
-            Debug.Log("Clear");
-            Debug.Log(furnitureNum);
+            UnityEngine.Debug.Log("Clear");
+            UnityEngine.Debug.Log(furnitureNum);
             for (int i = 0; i < elecposList.Count; i++)
             {
                 Instantiate(explosion, new Vector3(elecposList[i].Item1 + 0.5f, elecposList[i].Item2 + 0.5f, -20f), Quaternion.identity);
@@ -356,7 +356,7 @@ public class GameManager : MonoBehaviour
         initializeMap(obj);
         initializePiece(obj);
 
-        Debug.Log(obj.map.tile.texture);
+        UnityEngine.Debug.Log(obj.map.tile.texture);
     }
 
     // Update is called once per frame
