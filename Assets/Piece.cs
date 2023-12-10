@@ -23,7 +23,7 @@ public class Piece : MonoBehaviour
 
     private void OnRotate()
     {
-        //��]�̎擾
+        //�ｽ�ｽ]�ｽﾌ取得
         wheel += Input.GetAxis("Mouse ScrollWheel")*300;
         if (((int)wheel / 90) * 90 != 0)
         {
@@ -35,6 +35,7 @@ public class Piece : MonoBehaviour
 
     public void OnSet()
     {
+        //ピースを配置
         foreach (Transform children in transform)
         {
             float roundX = Mathf.Round(children.transform.position.x + 0.5f) - 0.5f;
@@ -46,6 +47,7 @@ public class Piece : MonoBehaviour
 
     public void OnRemove()
     {
+        //ピースをボードから取り除く
         foreach (Transform children in transform)
         {
             float roundX = Mathf.Round(children.transform.position.x + 0.5f) - 0.5f;
@@ -58,14 +60,12 @@ public class Piece : MonoBehaviour
 
     public bool CanPieceBePlaced()
     {
-        //������}�X���ǂ����̔�����s��
-        //Todo �}�X�̒u����͈͂�GameManager�������Ă���
         foreach (Transform children in transform)
         {
             float roundX = Mathf.Round(children.transform.position.x+0.5f)-0.5f;
             float roundY = Mathf.Round(children.transform.position.y+0.5f)-0.5f;
 
-            // mino���X�e�[�W���͂ݏo���Ȃ��悤�ɐ���
+            // mino�ｽ�ｽ�ｽX�ｽe�ｽ[�ｽW�ｽ�ｽ�ｽﾍみ出�ｽ�ｽ�ｽﾈゑｿｽ�ｽ謔､�ｽﾉ撰ｿｽ�ｽ�ｽ
             if (roundX < 0 || roundX >= max_x || roundY < 0 || roundY >= max_y)
             {
                 return false;
@@ -80,7 +80,7 @@ public class Piece : MonoBehaviour
 
     public Vector2 GetNearestCell()
     {
-        //OnMouseDrag�Ŏg�p�����ϐ�worldPosition����}�E�X�̈ʒu���擾���C�ł��߂��Z���̒��S�̍��W��Ԃ�
+        //OnMouseDrag�ｽﾅ使�ｽp�ｽ�ｽ�ｽ�ｽ�ｽﾏ撰ｿｽworldPosition�ｽ�ｽ�ｽ�ｽ}�ｽE�ｽX�ｽﾌ位置�ｽ�ｽ�ｽ謫ｾ�ｽ�ｽ�ｽC�ｽﾅゑｿｽ�ｽﾟゑｿｽ�ｽZ�ｽ�ｽ�ｽﾌ抵ｿｽ�ｽS�ｽﾌ搾ｿｽ�ｽW�ｽ�ｽﾔゑｿｽ
         Vector2 nearestCell = new Vector2(Mathf.Round(worldPosition.x+0.5f)-0.5f, Mathf.Round(worldPosition.y+0.5f)-0.5f);
         return nearestCell;
     }
