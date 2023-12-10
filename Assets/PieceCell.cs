@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PieceCell : MonoBehaviour
 {
-    GameObject parentPiece;
+    GameObject parentPiece;　
     Piece parentScript;
     public bool isCurrentFlowing=false;
     public List<bool> wireInterfase;
@@ -50,6 +50,7 @@ public class PieceCell : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //最初に親オブジェクトとそのPieceクラスを取得
         parentPiece = transform.parent.gameObject;
         parentScript = parentPiece.GetComponent<Piece>();
     }

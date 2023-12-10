@@ -19,10 +19,11 @@ public class Piece : MonoBehaviour
     public int max_y = 0;
     public int rotate = 0;
     public bool canDrug=true; 
+    public bool smallen=true;
 
     private void OnRotate()
     {
-        //‰ñ“]‚Ìæ“¾
+        //ï¿½ï½½ï¿½ï½½]ï¿½ï½½ï¾Œå–å¾—
         wheel += Input.GetAxis("Mouse ScrollWheel")*300;
         if (((int)wheel / 90) * 90 != 0)
         {
@@ -34,6 +35,7 @@ public class Piece : MonoBehaviour
 
     public void OnSet()
     {
+        //ãƒ”ãƒ¼ã‚¹ã‚’é…ç½®
         foreach (Transform children in transform)
         {
             float roundX = Mathf.Round(children.transform.position.x + 0.5f) - 0.5f;
@@ -45,6 +47,7 @@ public class Piece : MonoBehaviour
 
     public void OnRemove()
     {
+        //ãƒ”ãƒ¼ã‚¹ã‚’ãƒœãƒ¼ãƒ‰ã‹ã‚‰å–ã‚Šé™¤ã
         foreach (Transform children in transform)
         {
             float roundX = Mathf.Round(children.transform.position.x + 0.5f) - 0.5f;
@@ -57,14 +60,12 @@ public class Piece : MonoBehaviour
 
     public bool CanPieceBePlaced()
     {
-        //‚¨‚¯‚éƒ}ƒX‚©‚Ç‚¤‚©‚Ì”»’è‚ğs‚¤
-        //Todo ƒ}ƒX‚Ì’u‚¯‚é”ÍˆÍ‚ğGameManager‚©‚çæ‚Á‚Ä‚­‚é
         foreach (Transform children in transform)
         {
             float roundX = Mathf.Round(children.transform.position.x+0.5f)-0.5f;
             float roundY = Mathf.Round(children.transform.position.y+0.5f)-0.5f;
 
-            // mino‚ªƒXƒe[ƒW‚æ‚è‚Í‚İo‚³‚È‚¢‚æ‚¤‚É§Œä
+            // minoï¿½ï½½ï¿½ï½½ï¿½ï½½Xï¿½ï½½eï¿½ï½½[ï¿½ï½½Wï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾ã¿å‡ºï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾ˆã‚‘ï½¿ï½½ï¿½ï½½è¬”ï½¤ï¿½ï½½ï¾‰æ’°ï½¿ï½½ï¿½ï½½ï¿½ï½½
             if (roundX < 0 || roundX >= max_x || roundY < 0 || roundY >= max_y)
             {
                 return false;
@@ -79,7 +80,7 @@ public class Piece : MonoBehaviour
 
     public Vector2 GetNearestCell()
     {
-        //OnMouseDrag‚Åg—p‚µ‚½•Ï”worldPosition‚©‚çƒ}ƒEƒX‚ÌˆÊ’u‚ğæ“¾‚µCÅ‚à‹ß‚¢ƒZƒ‹‚Ì’†S‚ÌÀ•W‚ğ•Ô‚·
+        //OnMouseDragï¿½ï½½ï¾…ä½¿ï¿½ï½½pï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾æ’°ï½¿ï½½worldPositionï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½}ï¿½ï½½Eï¿½ï½½Xï¿½ï½½ï¾Œä½ç½®ï¿½ï½½ï¿½ï½½ï¿½ï½½è¬«ï½¾ï¿½ï½½ï¿½ï½½ï¿½ï½½Cï¿½ï½½ï¾…ã‚‘ï½¿ï½½ï¿½ï½½ï¾Ÿã‚‘ï½¿ï½½ï¿½ï½½Zï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾ŒæŠµï½¿ï½½ï¿½ï½½Sï¿½ï½½ï¾Œæ¾ï½¿ï½½ï¿½ï½½Wï¿½ï½½ï¿½ï½½ï¾”ã‚‘ï½¿ï½½
         Vector2 nearestCell = new Vector2(Mathf.Round(worldPosition.x+0.5f)-0.5f, Mathf.Round(worldPosition.y+0.5f)-0.5f);
         return nearestCell;
     }
@@ -104,6 +105,16 @@ public class Piece : MonoBehaviour
         if (dragging)
         {
             OnRotate();
+            if (smallen==false && canDrug){
+                this.transform.localScale = Vector3.one;
+            }
+            smallen = true;
+        }
+        else{
+            if (smallen && canDrug && this.transform.position == initialPosition){
+                this.transform.localScale = Vector3.one * 0.5f;
+            }
+            smallen = false;
         }
     }
 }
