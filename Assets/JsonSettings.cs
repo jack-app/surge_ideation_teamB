@@ -96,7 +96,7 @@ public class JsonSettings : MonoBehaviour
     //JSON�t�@�C����ǂݍ��ށB
     public IEnumerator loadSettings()
     {
-        string jsonPath =  Application.streamingAssetsPath +"/" + selectedStage.stage + ".json";
+        string jsonPath =  "https://mono-1729.github.io/json-upload/" + selectedStage.stage + ".json";
         Debug.Log(jsonPath);
         data obj;
         UnityWebRequest www = UnityWebRequest.Get(jsonPath);
