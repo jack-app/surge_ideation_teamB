@@ -66,6 +66,7 @@ namespace jsontype
     [System.Serializable]
     public class data
     {
+        public int stageNum;
         public Map map;
         public List<Pieces> pieces;
 
@@ -74,12 +75,12 @@ namespace jsontype
 
 public class JsonSettings : MonoBehaviour
 {
-    //JSON�t�@�C���̃p�X���L�ڂ���B
+    public GameObject gamemanager;
 
     public string getStagePath()
     {
         string jsonPath = "";
-        jsonPath = "Assets/" + selectedStage.stage + ".json";
+        jsonPath = Application.streamingAssetsPath+"/" + selectedStage.stage + ".json";
 
         return jsonPath;
     }
@@ -101,7 +102,7 @@ public class JsonSettings : MonoBehaviour
     }
 
     //JSON�t�@�C����ǂݍ��ށB
-    public data loadSettings()
+    public void loadSettings()
     {
         jsonPath = getStagePath();
         Debug.Log(jsonPath);
@@ -109,18 +110,15 @@ public class JsonSettings : MonoBehaviour
         if (!File.Exists(jsonPath))
         {
             Debug.Log("setting File not Exists");
-            return new data();
+            return;
         }
+        data obj;
 
-        //JSON�t�@�C����ǂݍ���
-        var json = File.ReadAllText(jsonPath);
+        StreamReader reader = new StreamReader(jsonPath);
+        string getone = reader.ReadToEnd();
+        reader.Close();
 
-        //�I�u�W�F�N�g������
-        data obj = JsonUtility.FromJson<data>(json);
-
-        return obj;
+        obj = JsonUtility.FromJson<data>(getone);
+        gamemanager.GetComponent<GameManager>().initializeMap(obj);
     }
-
-
-    
 }

@@ -1,0 +1,327 @@
+{
+  "stageNum": 1,
+  "map": {
+    "tile": {
+      "texture": "wood"
+    },
+    "size": {
+      "x": 10,
+      "y": 4
+    },
+    "start": {
+      "x": 1,
+      "y": 8
+    },
+    "goal": {
+      "x": 20,
+      "y": 1
+    }
+  },
+  "pieces": [
+    {
+      "type": "mino",
+      "cells": [
+        {
+          "x": 0,
+          "y": 0,
+          "wireInterface": [true, true, false, true],
+          "texture": "0011"
+        },
+        {
+          "x": 1,
+          "y": 0,
+          "wireInterface": [true, false, true, true],
+          "texture": "0110"
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "wireInterface": [true, true, true, false],
+          "texture": "1001"
+        },
+        {
+          "x": 1,
+          "y": 1,
+          "wireInterface": [false, true, true, true],
+          "texture": "1100"
+        }
+      ]
+    },
+    {
+      "type": "mino",
+      "cells": [
+        {
+          "x": 0,
+          "y": 0,
+          "wireInterface": [true, true, true, true],
+          "texture": "0010"
+        },
+        {
+          "x": 1,
+          "y": 0,
+          "wireInterface": [true, true, true, true],
+          "texture": "1110"
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "wireInterface": [false, true, true, true],
+          "texture": "1101"
+        },
+        {
+          "x": -1,
+          "y": 0,
+          "wireInterface": [true, true, true, false],
+          "texture": "1011"
+        }
+      ]
+    },
+    {
+      "type": "mino",
+      "cells": [
+        {
+          "x": 0,
+          "y": 0,
+          "wireInterface": [true, true, false, true],
+          "texture": "0011"
+        },
+        {
+          "x": 1,
+          "y": 0,
+          "wireInterface": [false, false, true, true],
+          "texture": "1100"
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "wireInterface": [false, true, true, false],
+          "texture": "1101"
+        },
+        {
+          "x": 1,
+          "y": -1,
+          "wireInterface": [true, true, false, false],
+          "texture": "0111"
+        }
+      ]
+    },
+    {
+      "type": "mino",
+      "cells": [
+        {
+          "x": -1,
+          "y": 0,
+          "wireInterface": [true, true, true, true],
+          "texture": "1011"
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "wireInterface": [false, true, false, true],
+          "texture": "1010"
+        },
+        {
+          "x": 1,
+          "y": 0,
+          "wireInterface": [false, true, false, true],
+          "texture": "1010"
+        },
+        {
+          "x": 2,
+          "y": 0,
+          "wireInterface": [true, true, true, true],
+          "texture": "1110"
+        }
+      ]
+    },
+    {
+      "type": "mino",
+      "cells": [
+        {
+          "x": 0,
+          "y": 0,
+          "wireInterface": [true, false, true, true],
+          "texture": "0100"
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "wireInterface": [false, true, true, true],
+          "texture": "1101"
+        },
+        {
+          "x": -1,
+          "y": 0,
+          "wireInterface": [false, true, false, true],
+          "texture": "1011"
+        },
+        {
+          "x": 0,
+          "y": -1,
+          "wireInterface": [true, true, false, false],
+          "texture": "0111"
+        }
+      ]
+    },
+    {
+      "type": "mino",
+      "cells": [
+        {
+          "x": 0,
+          "y": 0,
+          "wireInterface": [true, false, true, true],
+          "texture": "0101"
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "wireInterface": [true, false, true, true],
+          "texture": "1101"
+        },
+        {
+          "x": 0,
+          "y": -1,
+          "wireInterface": [true, false, false, true],
+          "texture": "0110"
+        },
+        {
+          "x": -1,
+          "y": -1,
+          "wireInterface": [false, true, false, true],
+          "texture": "1011"
+        }
+      ]
+    },
+    {
+      "type": "mino",
+      "cells": [
+        {
+          "x": 0,
+          "y": 0,
+          "wireInterface": [false, true, true, false],
+          "texture": "1001"
+        },
+        {
+          "x": 1,
+          "y": 0,
+          "wireInterface": [true, false, false, true],
+          "texture": "1110"
+        },
+        {
+          "x": 0,
+          "y": -1,
+          "wireInterface": [true, true, false, true],
+          "texture": "0110"
+        },
+        {
+          "x": -1,
+          "y": -1,
+          "wireInterface": [true, true, false, true],
+          "texture": "1011"
+        }
+      ]
+    },
+    {
+      "type": "mino",
+      "cells": [
+        {
+          "x": 0,
+          "y": 0,
+          "wireInterface": [true, false, true, false],
+          "texture": "0101"
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "wireInterface": [false, false, true, true],
+          "texture": "1100"
+        },
+        {
+          "x": -1,
+          "y": 1,
+          "wireInterface": [false, true, true, true],
+          "texture": "1011"
+        },
+        {
+          "x": 0,
+          "y": -1,
+          "wireInterface": [true, false, true, false],
+          "texture": "0111"
+        }
+      ]
+    },
+    {
+      "type": "mino",
+      "cells": [
+        {
+          "x": 0,
+          "y": -1,
+          "wireInterface": [true, false, true, false],
+          "texture": "0111"
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "wireInterface": [true, true, true, false],
+          "texture": "1001"
+        },
+        {
+          "x": 1,
+          "y": 0,
+          "wireInterface": [true, true, false, true],
+          "texture": "0110"
+        },
+        {
+          "x": 1,
+          "y": 1,
+          "wireInterface": [false, true, true, false],
+          "texture": "1101"
+        }
+      ]
+    },
+    {
+      "type": "electronics",
+      "cells": [
+        {
+          "x": 1,
+          "y": 1,
+          "wireInterface": [true, true, true, true],
+          "texture": "oven"
+        }
+      ]
+    },
+    {
+      "type": "electronics",
+      "cells": [
+        {
+          "x": 2,
+          "y": 0,
+          "wireInterface": [true, true, true, true],
+          "texture": "refrigerator"
+        }
+      ]
+    },
+    {
+      "type": "electronics",
+      "cells": [
+        {
+          "x": 5,
+          "y": 3,
+          "wireInterface": [true, true, true, true],
+          "texture": "television"
+        }
+      ]
+    },
+    {
+      "type": "electronics",
+      "cells": [
+        {
+          "x": 7,
+          "y": 1,
+          "wireInterface": [true, true, true, true],
+          "texture": "washer"
+        }
+      ]
+    }
+  ]
+}

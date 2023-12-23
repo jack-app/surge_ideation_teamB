@@ -152,13 +152,12 @@ public class GameManager : MonoBehaviour
                 pieceScriptList[i].MoveToInitialPosition();
             }
 
-            ///aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
             //pieceList[i].transform.parent = GameObject.Find("Main Camera").transform.GetChild(1).gameObject.transform;
         }
     }
 
-    void initializeMap(data obj)
+    public void initializeMap(data obj)
     {
         max_x = obj.map.size.x;
         max_y = obj.map.size.y;
@@ -211,9 +210,10 @@ public class GameManager : MonoBehaviour
         //Image backimage = GameObject.Find("Main Camera/Images/カミナリくん　全体イメージ_4").GetComponent<Image>();
         //backimage.rectTransform.scale = new Vector2(ratio*backimage.rectTransform.scale.x,ratio*backimage.rectTransform.scale.y);
 
-        string stageNum = jsonsettings.GetComponent<JsonSettings>().getStagePath().Substring(7,1);
+        string stageNum = obj.stageNum.ToString();
         GameObject.Find("Main Camera/Canvas/RawImage (2)/Text (TMP)").GetComponent<TextMeshProUGUI>().SetText(stageNum);
         // UnityEngine.Debug.Log(obj);
+        initializePiece(obj);
     }
 
 
@@ -351,12 +351,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        data obj = jsonsettings.GetComponent<JsonSettings>().loadSettings();
-        initializeMap(obj);
-        initializePiece(obj);
-
-        UnityEngine.Debug.Log(obj.map.tile.texture);
+        jsonsettings.GetComponent<JsonSettings>().loadSettings();
     }
 
     // Update is called once per frame
