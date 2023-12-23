@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     int[,,] power_line;
     int[,] distance;
     public bool[,] board;
+    bool clear  = false;
 
     public GameObject block;
     public GameObject piece;
@@ -50,18 +51,17 @@ public class GameManager : MonoBehaviour
         int block_cnt = 0;
 
         for (int i = 0; i < obj.pieces.Count; i++) {
-            //sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
             max_x = obj.map.size.x;
             max_y = obj.map.size.y;
 
-            float ratio = Math.Max(Math.Max(max_x/20f,max_y/8f),1f);
+            float ratio = Math.Max(Math.Max(max_x/20f,max_y/8f),1.1f);
 
             //float init_x = -3 + i * 2;
-            float init_x = max_x * 0.5f + (i - obj.pieces.Count/2+2f)*2*ratio;
+            float init_x = max_x * 0.5f + (i - obj.pieces.Count/2+2f)*2*ratio ;
             //float init_x = 0;
             //float init_y = 0;
 
-            float init_y = -3;
+            float init_y = -4;
             if (max_y>8){
                 //init_y = max_y/2 - 7.5f * ratio;
                 init_y = 3.5f + max_y/2 -10f * ratio;
@@ -205,12 +205,12 @@ public class GameManager : MonoBehaviour
         //float cam_y = max_y*ratio/3*2+1;
         float cam_x = max_x/2f;
         mainCamera.gameObject.transform.position = new Vector3(cam_x,cam_y,-10f);
-        mainCamera.orthographicSize = 18*ratio;
+        mainCamera.orthographicSize = 9*ratio;
         //Image backimage = GameObject.Find("Main Camera/Images/カミナリくん　全体イメージ_4").GetComponent<Image>();
         //backimage.rectTransform.scale = new Vector2(ratio*backimage.rectTransform.scale.x,ratio*backimage.rectTransform.scale.y);
 
         string stageNum = obj.stageNum.ToString();
-        GameObject.Find("Main Camera/Canvas/RawImage (2)/Text (TMP)").GetComponent<TextMeshProUGUI>().SetText(stageNum);
+        GameObject.Find("Canvas/RawImage (2)/Text (TMP)").GetComponent<TextMeshProUGUI>().SetText(stageNum);
         // UnityEngine.Debug.Log(obj);
         initializePiece(obj);
     }
@@ -269,7 +269,6 @@ public class GameManager : MonoBehaviour
         distance[sx, sy] = 0;
         Queue<Tuple<int, int>> tq = new Queue<Tuple<int, int>>();
         tq.Enqueue(Tuple.Create(sx, sy));
-        bool clear = true;
         while (0 < tq.Count)
         {
             var q = tq.Dequeue();
@@ -291,7 +290,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-      
+        furnitureNum = 0;
         if (distance[gx, gy] != -1)
         {
             for (int i = 0; i < elecposList.Count; i++)
@@ -309,7 +308,10 @@ public class GameManager : MonoBehaviour
                     Instantiate(explosion, new Vector3(elecposList[i].Item1 + 0.5f, elecposList[i].Item2 + 0.5f, -20f), Quaternion.identity);
                 }
             }
-            StartCoroutine(SceneChange());
+            if(clear == false){
+                clear = true;
+                StartCoroutine(SceneChange());
+            }
         }
     }
 
