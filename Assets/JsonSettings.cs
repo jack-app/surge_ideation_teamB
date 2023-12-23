@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+
 using System.IO;
 using UnityEngine.SceneManagement;
 using jsontype;
@@ -77,21 +79,11 @@ public class JsonSettings : MonoBehaviour
 {
     public GameObject gamemanager;
 
-    public string getStagePath()
-    {
-        string jsonPath = "";
-        jsonPath = Application.streamingAssetsPath+"/" + selectedStage.stage + ".json";
-
-        return jsonPath;
-    }
-
-    private string jsonPath;
-
 
     // Start is called before the first frame update
     void Start()
     {
-
+        StartCoroutine(loadSettings());
     }
 
 
@@ -102,23 +94,24 @@ public class JsonSettings : MonoBehaviour
     }
 
     //JSON�t�@�C����ǂݍ��ށB
-    public void loadSettings()
+    public IEnumerator loadSettings()
     {
-        jsonPath = getStagePath();
+        string jsonPath =  Application.streamingAssetsPath +"/" + selectedStage.stage + ".json";
         Debug.Log(jsonPath);
-        //�t�@�C�������Ԉ���Ă�ꍇ�̓G���[���o���Ƃ�
-        if (!File.Exists(jsonPath))
-        {
-            Debug.Log("setting File not Exists");
-            return;
-        }
         data obj;
+        UnityWebRequest www = UnityWebRequest.Get(jsonPath);
+        yield return www.SendWebRequest();
 
-        StreamReader reader = new StreamReader(jsonPath);
-        string getone = reader.ReadToEnd();
-        reader.Close();
-
-        obj = JsonUtility.FromJson<data>(getone);
-        gamemanager.GetComponent<GameManager>().initializeMap(obj);
+        if (www.result == UnityWebRequest.Result.Success)
+        {
+            // データの利用例（必要に応じて）
+            string jsonContent = www.downloadHandler.text;
+            obj = JsonUtility.FromJson<data>(jsonContent);
+            gamemanager.GetComponent<GameManager>().initializeMap(obj);
+        }
+        else
+        {
+            Debug.LogError("Failed to load JSON file: " + www.error);
+        }  
     }
 }

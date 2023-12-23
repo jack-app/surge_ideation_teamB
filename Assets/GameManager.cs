@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
 {
     // max_x,max_yはjsonから入手したい
     // power_lineとかdistanceの配列の大きさとかは大きい値で初期化かも
-    public GameObject jsonsettings;
     int max_x = 0;
     int max_y = 0;
     int sx = 0;
@@ -351,7 +350,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        jsonsettings.GetComponent<JsonSettings>().loadSettings();
+
     }
 
     // Update is called once per frame
