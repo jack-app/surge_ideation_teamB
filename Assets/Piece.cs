@@ -116,5 +116,17 @@ public class Piece : MonoBehaviour
             }
             smallen = false;
         }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            if (dragging){
+                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            if (dragging){
+                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
+            }
+        }
     }
 }
