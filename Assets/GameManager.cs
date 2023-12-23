@@ -292,13 +292,6 @@ public class GameManager : MonoBehaviour
             }
         }
       
-        //for (int i = 0; i < elecposList.Count; i++)
-        //{
-            //if (distance[elecposList[i].Item1 * 2 + 1, elecposList[i].Item2 * 2 + 1] == -1)
-           // {
-                //clear = false;
-            //}
-        //}
         if (distance[gx, gy] != -1)
         {
             for (int i = 0; i < elecposList.Count; i++)
@@ -312,7 +305,9 @@ public class GameManager : MonoBehaviour
             UnityEngine.Debug.Log(furnitureNum);
             for (int i = 0; i < elecposList.Count; i++)
             {
-                Instantiate(explosion, new Vector3(elecposList[i].Item1 + 0.5f, elecposList[i].Item2 + 0.5f, -20f), Quaternion.identity);
+                if(distance[elecposList[i].Item1 * 2 + 1, elecposList[i].Item2 * 2 + 1] != -1){
+                    Instantiate(explosion, new Vector3(elecposList[i].Item1 + 0.5f, elecposList[i].Item2 + 0.5f, -20f), Quaternion.identity);
+                }
             }
             StartCoroutine(SceneChange());
         }
