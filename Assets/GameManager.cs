@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
 {
     // max_x,max_yはjsonから入手したい
     // power_lineとかdistanceの配列の大きさとかは大きい値で初期化かも
-    public GameObject jsonsettings;
     int max_x = 0;
     int max_y = 0;
     int sx = 0;
@@ -152,13 +151,12 @@ public class GameManager : MonoBehaviour
                 pieceScriptList[i].MoveToInitialPosition();
             }
 
-            ///aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
             //pieceList[i].transform.parent = GameObject.Find("Main Camera").transform.GetChild(1).gameObject.transform;
         }
     }
 
-    void initializeMap(data obj)
+    public void initializeMap(data obj)
     {
         max_x = obj.map.size.x;
         max_y = obj.map.size.y;
@@ -211,9 +209,10 @@ public class GameManager : MonoBehaviour
         //Image backimage = GameObject.Find("Main Camera/Images/カミナリくん　全体イメージ_4").GetComponent<Image>();
         //backimage.rectTransform.scale = new Vector2(ratio*backimage.rectTransform.scale.x,ratio*backimage.rectTransform.scale.y);
 
-        string stageNum = jsonsettings.GetComponent<JsonSettings>().getStagePath().Substring(7,1);
+        string stageNum = obj.stageNum.ToString();
         GameObject.Find("Main Camera/Canvas/RawImage (2)/Text (TMP)").GetComponent<TextMeshProUGUI>().SetText(stageNum);
         // UnityEngine.Debug.Log(obj);
+        initializePiece(obj);
     }
 
 
@@ -293,13 +292,6 @@ public class GameManager : MonoBehaviour
             }
         }
       
-        //for (int i = 0; i < elecposList.Count; i++)
-        //{
-            //if (distance[elecposList[i].Item1 * 2 + 1, elecposList[i].Item2 * 2 + 1] == -1)
-           // {
-                //clear = false;
-            //}
-        //}
         if (distance[gx, gy] != -1)
         {
             for (int i = 0; i < elecposList.Count; i++)
@@ -313,7 +305,9 @@ public class GameManager : MonoBehaviour
             UnityEngine.Debug.Log(furnitureNum);
             for (int i = 0; i < elecposList.Count; i++)
             {
-                Instantiate(explosion, new Vector3(elecposList[i].Item1 + 0.5f, elecposList[i].Item2 + 0.5f, -20f), Quaternion.identity);
+                if(distance[elecposList[i].Item1 * 2 + 1, elecposList[i].Item2 * 2 + 1] != -1){
+                    Instantiate(explosion, new Vector3(elecposList[i].Item1 + 0.5f, elecposList[i].Item2 + 0.5f, -20f), Quaternion.identity);
+                }
             }
             StartCoroutine(SceneChange());
         }
@@ -352,11 +346,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
 
-        data obj = jsonsettings.GetComponent<JsonSettings>().loadSettings();
-        initializeMap(obj);
-        initializePiece(obj);
-
-        UnityEngine.Debug.Log(obj.map.tile.texture);
     }
 
     // Update is called once per frame

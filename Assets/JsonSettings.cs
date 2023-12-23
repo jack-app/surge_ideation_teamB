@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+
 using System.IO;
 using UnityEngine.SceneManagement;
 using jsontype;
@@ -66,6 +68,7 @@ namespace jsontype
     [System.Serializable]
     public class data
     {
+        public int stageNum;
         public Map map;
         public List<Pieces> pieces;
 
@@ -74,23 +77,13 @@ namespace jsontype
 
 public class JsonSettings : MonoBehaviour
 {
-    //JSON�t�@�C���̃p�X���L�ڂ���B
-
-    public string getStagePath()
-    {
-        string jsonPath = "";
-        jsonPath = "Assets/" + selectedStage.stage + ".json";
-
-        return jsonPath;
-    }
-
-    private string jsonPath;
+    public GameObject gamemanager;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        StartCoroutine(loadSettings());
     }
 
 
@@ -101,26 +94,24 @@ public class JsonSettings : MonoBehaviour
     }
 
     //JSON�t�@�C����ǂݍ��ށB
-    public data loadSettings()
+    public IEnumerator loadSettings()
     {
-        jsonPath = getStagePath();
+        string jsonPath =  "https://mono-1729.github.io/json-upload/" + selectedStage.stage + ".json";
         Debug.Log(jsonPath);
-        //�t�@�C�������Ԉ���Ă�ꍇ�̓G���[���o���Ƃ�
-        if (!File.Exists(jsonPath))
+        data obj;
+        UnityWebRequest www = UnityWebRequest.Get(jsonPath);
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.Success)
         {
-            Debug.Log("setting File not Exists");
-            return new data();
+            // データの利用例（必要に応じて）
+            string jsonContent = www.downloadHandler.text;
+            obj = JsonUtility.FromJson<data>(jsonContent);
+            gamemanager.GetComponent<GameManager>().initializeMap(obj);
         }
-
-        //JSON�t�@�C����ǂݍ���
-        var json = File.ReadAllText(jsonPath);
-
-        //�I�u�W�F�N�g������
-        data obj = JsonUtility.FromJson<data>(json);
-
-        return obj;
+        else
+        {
+            Debug.LogError("Failed to load JSON file: " + www.error);
+        }  
     }
-
-
-    
 }
